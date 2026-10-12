@@ -1,10 +1,10 @@
 # dsh whale 改版挂件
 
-基于 MeteorNOX 的 DSH 小鲸鱼，增加 AI 插话、独立 API 配置与隐私防护的个人改版。此仓库首版 **v1.0.0** 保存的是维护者在 2026-10-12 实际安装使用的 `0.3.16-companion.11` 源码，运行代码与内部版本号保持原样。
+**v1.0.0** — DSH 中的小鲸鱼 AI 插话挂件，提供普通陪聊、工作模式、独立 API 配置与隐私防护。
 
-**感谢原作者 [MeteorNOX](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commits?author=MeteorNOX)，以及所有上游贡献者。** 改版由 spceyee 整理，发布账号为 [spaceyee1](https://github.com/spaceyee1)。完整名单、具体贡献与素材来源见 [CREDITS.md](CREDITS.md)。本仓库不代表上游发布、审核或合入。
+**感谢原作者 [MeteorNOX](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commits?author=MeteorNOX)，以及所有上游贡献者。** 改版维护：spceyee / [spaceyee1](https://github.com/spaceyee1)。全部鸣谢见 [CREDITS.md](CREDITS.md)。
 
-> 本次发布是**源码快照**，不含 EXE 安装器，也不含原包的 12 个图片、动图和音效文件。首次克隆不能直接完整显示原角色或播放原音效；请先按 [ASSETS.md](ASSETS.md) 准备自己有权使用的素材，再安装到 DSH。源码中的素材引用仍保留原路径。
+> 发布包不含 EXE 安装器和原包的 12 个图片、动图、音效文件。安装前请按 [ASSETS.md](ASSETS.md) 准备自己有权使用的素材，否则原角色和音效无法完整呈现。
 
 ## 本版能做什么
 
@@ -15,21 +15,6 @@
 - 保留角色、气泡、拖拽等已有界面代码；图片和音效需要另行准备。
 
 当前源码固定启用 `PRIVACY_MODE=true`。旧版的余额查询与读取 DSH 主聊天 Key 的路径已禁用。因此，历史文档中的余额、记账和部分探活说明不代表这个改版当前可用的功能。
-
-## 版本与来源
-
-| 项目 | 本次发布 |
-|---|---|
-| 仓库首版 | `v1.0.0` |
-| 安装包内部版本 | `0.3.16-companion.11`，简称 `0.3.16c11` |
-| 保留包名 | `dsh-whale-widget` |
-| 上游基线 | MeteorNOX `v0.3.16` |
-| 上游提交 | [`86af3f2d90870d14742d2083e532b98a16b7b25c`](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commit/86af3f2d90870d14742d2083e532b98a16b7b25c) |
-| 本次来源 | 本机 DSH `web-desktop` profile 中已安装的插件；`web` profile 副本逐文件一致 |
-
-`v1.0.0` 是本仓库首次归档的编号，不表示把内部 `0.3.16-companion.11` 升级成了另一套运行代码。为便于核对，`package.json` 中原版本和上游元数据继续保留；本改版问题请提交到[本仓库 Issues](https://github.com/spaceyee1/dsh-whale-widget-mod/issues)。
-
-[SOURCE-SNAPSHOT.json](SOURCE-SNAPSHOT.json) 记录来源文件、SHA-256、发布路径和排除项。原安装 README 完整保存在 [docs/INSTALLED-README.md](docs/INSTALLED-README.md)，标签基线文档保存在 [UPSTREAM-README-v0.3.16.md](UPSTREAM-README-v0.3.16.md)。它们用于追溯来源、历史行为及鸣谢；**本仓库交付内容与安装限制以当前 README 为准**。
 
 ## 使用前提与安装
 
@@ -48,7 +33,7 @@ $pluginProfile = 'web'
 npx @deepseek-ai/dsh plugin --profile $pluginProfile add "file:$pluginPath"
 ```
 
-本次记录的桌面安装目录使用 `web-desktop` profile；**只有确认自己的宿主确实使用它时**，才把上面的 `$pluginProfile` 改成 `'web-desktop'`。安装完成后切回实际项目目录使用 Harness，不要从挂件源码目录启动项目任务。
+桌面端与 Web 端可能使用不同的 profile。如果自己的宿主使用 `web-desktop`，将 `$pluginProfile` 改成 `'web-desktop'`。安装完成后切回实际项目目录使用 Harness，不要从挂件源码目录启动项目任务。
 
 需要卸载时，先确认同一个目标 profile，再移除插件：
 
@@ -56,9 +41,7 @@ npx @deepseek-ai/dsh plugin --profile $pluginProfile add "file:$pluginPath"
 npx @deepseek-ai/dsh plugin --profile $pluginProfile remove dsh-whale-widget
 ```
 
-桌面端和 Web 端不一定使用同一个 profile；本次快照来自 `web-desktop`，不能据此推断所有 DSH 发行版都使用这个名字。本仓库不包含旧文档提及的 EXE，也没有在发布过程中执行安装或替换现有插件。
-
-具体的 Key 状态、模式和操作说明可参考 [COMPANION-GUIDE.md](COMPANION-GUIDE.md)；其中 EXE 安装和完整素材包描述属于旧版交付，不能套用于本仓库源码快照。
+Key 状态、模式和操作说明见 [COMPANION-GUIDE.md](COMPANION-GUIDE.md)。该文档中的 EXE 和完整素材包属于历史交付，安装方式与文件范围以本 README 为准。
 
 ## API 与数据边界
 
@@ -72,12 +55,12 @@ npx @deepseek-ai/dsh plugin --profile $pluginProfile remove dsh-whale-widget
 
 ## 验证与排障
 
-本次核对了安装来源、两份安装副本的一致性，确认 **22 个保留的原文件 SHA-256 不变**，并完成 **12 个 JavaScript / MJS 文件的语法检查**。没有运行 DSH、调用真实 AI 接口或执行安装事务。历史文件中的“220 项回归”属于当时的开发记录，不是本次重新执行的结果。
+本次完成 **12 个 JavaScript / MJS 文件的语法检查**与来源文件校验。未执行 DSH 运行、真实 API 或安装事务测试。内部版本、完整结果和排障步骤见 [DEBUG.md](DEBUG.md)。
 
-复现方法、核验命令和常见问题见 [DEBUG.md](DEBUG.md)。反馈问题时只提供脱敏后的错误、系统与 Harness 版本、profile 名和复现步骤，不要上传 Key、完整配置或聊天记录。
+问题反馈：[本仓库 Issues](https://github.com/spaceyee1/dsh-whale-widget-mod/issues)。请提供脱敏错误、系统与 Harness 版本、profile 名和复现步骤，不要上传 Key、完整配置或聊天记录。
 
 ## 鸣谢与许可
 
 原项目：[DeepSeek-Balance-Whale-Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget)。原作者 **MeteorNOX** 的版权声明与 [MIT LICENSE](LICENSE) 完整保留。全部历史贡献者及素材来源列于 [CREDITS.md](CREDITS.md)，原 [ATTRIBUTION.md](ATTRIBUTION.md)、[PROVENANCE.md](PROVENANCE.md) 和 [UPSTREAM-SOURCE.md](UPSTREAM-SOURCE.md) 继续保留。
 
-代码许可与图片、动图、音效的权利范围不同。上游说明明确美术素材不适用代码的 MIT 许可；本次未取得足以覆盖这个公开改版仓库的再分发证明，因此没有发布这 12 个媒体文件。这是发布范围的限制，不是对原素材已侵权的判定；署名也不等于素材授权。
+图片、动图、音效不适用代码的 MIT 许可。本次未确认原包 12 个媒体文件在本仓库的再分发权限，因此未随包提供；详细来源及本地准备方法见 [ASSETS.md](ASSETS.md)。

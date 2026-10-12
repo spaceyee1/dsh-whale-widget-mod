@@ -1,17 +1,17 @@
 # 全部鸣谢与来源
 
-中文项目名：**dsh whale 改版挂件**。仓库首版 `v1.0.0`，对应当前安装源码 `0.3.16-companion.11`。
+**dsh whale 改版挂件 v1.0.0**。感谢原作者、功能贡献者、素材创作者和社区使用者。
 
 ## 原作者与改版维护
 
 - **[MeteorNOX](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commits?author=MeteorNOX)**：原项目 DSH 小鲸鱼记账挂件的作者与维护者。感谢原始设计、代码和持续维护；原版权声明 `Copyright (c) 2026 MeteorNOX` 保留在 [LICENSE](LICENSE)。
-- **spceyee**：现有安装版中的 AI 插话、通用 API、独立凭据和隐私功能扩展维护者；当前归档发布账号为 [spaceyee1](https://github.com/spaceyee1)。
+- **spceyee**：AI 插话、通用 API、独立凭据和隐私功能扩展维护者；发布账号为 [spaceyee1](https://github.com/spaceyee1)。
 
 上游仓库：[MeteorNOX/DeepSeek-Balance-Whale-Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget)。基线是 `v0.3.16`，提交 [`86af3f2d90870d14742d2083e532b98a16b7b25c`](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commit/86af3f2d90870d14742d2083e532b98a16b7b25c)。本仓库保留现有改版和上游的来源关系，不把上游实现改署为完全原创，也不表示上游已经审核本次发布。
 
 ## 保留的全部历史贡献者
 
-下面完整列出当前安装 README 的“致谢”中具名的贡献者。贡献内容按该文档整理，归属上游历史，不暗示本次重复实现或验证。
+以下保留原 README“致谢”中的全部具名贡献者及其上游贡献。
 
 | 贡献者 | 上游记录的贡献 |
 |---|---|
@@ -29,7 +29,7 @@
 | [fangbm](https://github.com/fangbm) | 多币种余额顺序、每轮消耗气泡修复、周末谷价、记账币种感知及 Release/PR changelog 自动化；见 [#15](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/15)、[#19](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/19)、[#31](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/31)、[#33](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/33)、[#46](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/46)。 |
 | [xiaolinnnnnnn](https://github.com/xiaolinnnnnnn) | Windows 桌面端 Tauri v2 重构；见 [#26](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/pull/26)。 |
 
-也感谢上游社区其它未具名的使用者、反馈者和贡献者。这份名单覆盖**本次安装快照文档中记录的全部具名鸣谢**，不是对上游此后所有贡献历史的穷尽。完整原文在 [docs/INSTALLED-README.md](docs/INSTALLED-README.md)，未修改的标签 README 在 [UPSTREAM-README-v0.3.16.md](UPSTREAM-README-v0.3.16.md)。
+也感谢上游社区其它未具名的使用者、反馈者和贡献者。完整鸣谢原文见 [保留的原 README](docs/INSTALLED-README.md) 和 [上游标签 README](UPSTREAM-README-v0.3.16.md)。
 
 ## 素材来源记录
 
@@ -53,7 +53,7 @@
 - [ATTRIBUTION.md](ATTRIBUTION.md)：现有安装版的署名与范围说明。
 - [PROVENANCE.md](PROVENANCE.md)：原素材来源和许可范围说明。
 - [UPSTREAM-SOURCE.md](UPSTREAM-SOURCE.md)：现有安装版记录的上游基线与扩展来源。
-- [docs/INSTALLED-README.md](docs/INSTALLED-README.md)：本次实际安装版 README 的完整原文。
+- [docs/INSTALLED-README.md](docs/INSTALLED-README.md)：保留的原 README 全文。
 - [UPSTREAM-README-v0.3.16.md](UPSTREAM-README-v0.3.16.md)：随安装版保留的上游标签 README。
 
 历史文档中提到的完整素材包、EXE、归档 ZIP、差异补丁和历史回归结果，不代表它们全部包含在本仓库首版；实际发布范围以 [README.md](README.md) 和清单为准。
