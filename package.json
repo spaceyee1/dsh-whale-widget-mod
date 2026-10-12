@@ -1,0 +1,61 @@
+{
+  "name": "dsh-whale-widget",
+  "version": "0.3.16-companion.11",
+  "description": "MeteorNOX DSH 小鲸鱼基础上的 spceyee AI 插话防火墙增强版：Windows 当前账户加密保存 Key、通用 API 和隐私保护；原作者与素材来源完整保留",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "balance",
+    "widget"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "PROVENANCE.md",
+    "COMPANION-GUIDE.md",
+    "LICENSE",
+    "ATTRIBUTION.md",
+    "UPSTREAM-SOURCE.md",
+    "UPSTREAM-README-v0.3.16.md",
+    "用户使用方式.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/issues"
+  },
+  "homepage": "https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget#readme",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "license": "MIT",
+  "author": {
+    "name": "MeteorNOX",
+    "url": "https://github.com/MeteorNOX"
+  },
+  "contributors": [
+    {
+      "name": "spceyee",
+      "role": "AI 插话、通用 API 与隐私合作扩展"
+    }
+  ],
+  "dshWhaleCollaboration": {
+    "upstreamVersion": "0.3.16",
+    "upstreamCommit": "86af3f2d90870d14742d2083e532b98a16b7b25c",
+    "upstreamAuthor": "MeteorNOX",
+    "extensionMaintainer": "spceyee",
+    "distribution": "separate-collaboration-extension",
+    "previousExtensionVersion": "0.3.16-companion.10",
+    "extensionChange": "仅修正文档及版本元数据：说明插件与主聊天 Key 的作用域、运行时凭据读取和认证发送，限定测试结论；引用上游许可，不新增第三方授权。运行 JavaScript 与 .10 逐字节一致。",
+    "groupFileVersion": "0.3.16c11"
+  }
+}

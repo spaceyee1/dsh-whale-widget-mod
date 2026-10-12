@@ -1,0 +1,225 @@
+{
+  "release": "v1.0.0",
+  "captureDate": "2026-10-12",
+  "sourceVersion": "0.3.16-companion.11",
+  "sourceKind": "snapshot of the currently installed DSH web-desktop profile plugin; no DSH process running at capture",
+  "notes": "Runtime source files are unchanged. New release documentation is not part of the installed-source manifest. Runtime package and plugin versions are retained for traceability; v1.0.0 names this repository snapshot.",
+  "files": [
+    {
+      "sourcePath": "ATTRIBUTION.md",
+      "bytes": 2612,
+      "sha256": "96b0205b34d99672bc11e47b3d543d11902886d61c433df890ebe5756a80d8a8",
+      "publishedPath": "ATTRIBUTION.md"
+    },
+    {
+      "sourcePath": "COMPANION-GUIDE.md",
+      "bytes": 9394,
+      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
+      "publishedPath": "COMPANION-GUIDE.md"
+    },
+    {
+      "sourcePath": "LICENSE",
+      "bytes": 1066,
+      "sha256": "a1e46acc1349f63e9d1e26a8a600823e010fedcaff20fc1eceb6564432bf829b",
+      "publishedPath": "LICENSE"
+    },
+    {
+      "sourcePath": "PROVENANCE.md",
+      "bytes": 2594,
+      "sha256": "798179d23d620e5f8be4220b75df008c97ebc821d8f69d2842d8af9cf69726e8",
+      "publishedPath": "PROVENANCE.md"
+    },
+    {
+      "sourcePath": "README.md",
+      "bytes": 52237,
+      "sha256": "dcb7934b66ee7f7225dd4cb235f1a17825b8e9356f7682285c17586ae3a34c4e",
+      "publishedPath": "docs/INSTALLED-README.md"
+    },
+    {
+      "sourcePath": "UPSTREAM-README-v0.3.16.md",
+      "bytes": 47916,
+      "sha256": "d6544b5127f667e4a22d44a2ff032b0dab8a4cd10ecc7127fb57e732ed9307f9",
+      "publishedPath": "UPSTREAM-README-v0.3.16.md"
+    },
+    {
+      "sourcePath": "UPSTREAM-SOURCE.md",
+      "bytes": 4037,
+      "sha256": "eb1dc74c63e7bb2565c376550be0744633d059f08bc242f01da15ee78bcf4833",
+      "publishedPath": "UPSTREAM-SOURCE.md"
+    },
+    {
+      "sourcePath": "assets/D1.mp3",
+      "bytes": 3294,
+      "sha256": "626c0fb5dbfb2529331b98b80fa29961efbcbef6a454b36328481b61d8a0c7be",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/D2.mp3",
+      "bytes": 4232,
+      "sha256": "8327a07da3ec17f42ec6dddec8f6e2862055c7bfa5e15e3908442c517fd0f22d",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/DSH2.png",
+      "bytes": 809921,
+      "sha256": "c17efbb95a7522eeb1779e00daa1685cfe835edefd525b7dfd0ddadbc87b5387",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/DSniang02.png",
+      "bytes": 466452,
+      "sha256": "bfcdac201b183bd31cc154a9d5425dfa5c946fbbc4d6584b890b7e538776eb0d",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/DSniang1.png",
+      "bytes": 255988,
+      "sha256": "dcc456613dbb1102a4b7ef636a8b622371e33b763489d6249c434fb54248ba5c",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/Ya1.mp3",
+      "bytes": 6370,
+      "sha256": "0ad8f934ae5fa3cbd42745e086a56aa6532766618c6a620b860a795bdc7689f9",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/Ya2.mp3",
+      "bytes": 2976,
+      "sha256": "1a8998077e5e306c3088bb442ce36617261dd58200754f457469a520801c565b",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/bubble-money1.gif",
+      "bytes": 2704365,
+      "sha256": "d3c8df0f63f840292c68596b5e3f3e8ceb70c4fa612581737a9b0e3c653bdc8c",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/bubble-petpet.gif",
+      "bytes": 94643,
+      "sha256": "0b9dd76db4ea86ce3d3b07a56054ad33f25f6eb7a320472a4810859f183fc332",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/minecraft-exp-orb.wav",
+      "bytes": 59488,
+      "sha256": "aa96e35a3101b46de496271858e87214e7821a0a85316f6be1a001113ddec619",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/rua.gif",
+      "bytes": 94643,
+      "sha256": "0b9dd76db4ea86ce3d3b07a56054ad33f25f6eb7a320472a4810859f183fc332",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/task-end-a.wav",
+      "bytes": 319288,
+      "sha256": "6228bbe410658a18f06e5cd42cc055570c54905dd371cb971c0a0df88c47c417",
+      "publishedPath": null,
+      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+    },
+    {
+      "sourcePath": "assets/whale-widget.js",
+      "bytes": 880947,
+      "sha256": "adaeb521c0021029449055ec52b417ab4a5a5c962166b9c8e8c193b4d2ed6b7e",
+      "publishedPath": "assets/whale-widget.js"
+    },
+    {
+      "sourcePath": "cordis.patch.yml",
+      "bytes": 734,
+      "sha256": "0377f1fef5557f57a61c8bbc4b4ea86ade102797a555b84cc392eb95cebdec1a",
+      "publishedPath": "cordis.patch.yml"
+    },
+    {
+      "sourcePath": "lib/accounting.mjs",
+      "bytes": 11717,
+      "sha256": "2a1f91e2c79d9167f729a22c8553dc9e514eecb85f6bccf1d0d70fba46082702",
+      "publishedPath": "lib/accounting.mjs"
+    },
+    {
+      "sourcePath": "lib/companion-api.mjs",
+      "bytes": 21182,
+      "sha256": "b06a95969392f94c5b472308facc25950902e592d27bcf4201510a7701aca0cf",
+      "publishedPath": "lib/companion-api.mjs"
+    },
+    {
+      "sourcePath": "lib/companion-presets.mjs",
+      "bytes": 1922,
+      "sha256": "9c4a725742481ada86827946337bd14e6f78c087ad2f765c0330916005a116a0",
+      "publishedPath": "lib/companion-presets.mjs"
+    },
+    {
+      "sourcePath": "lib/companion-route-security.mjs",
+      "bytes": 1058,
+      "sha256": "4e09fba98c3b645e6412da0246ad6545d161c078816bbd679fda39e2f88f6734",
+      "publishedPath": "lib/companion-route-security.mjs"
+    },
+    {
+      "sourcePath": "lib/companion-service.mjs",
+      "bytes": 23528,
+      "sha256": "229b735e3a8ca819a2b0d9fd9287caa5dcf4ded1e52086a09f4f19ad6522fcdd",
+      "publishedPath": "lib/companion-service.mjs"
+    },
+    {
+      "sourcePath": "lib/default-prompts.mjs",
+      "bytes": 866,
+      "sha256": "80c534d4a06c47afd6200a2ca2a3dde7bd3cf7ffd97e4a6cbe1380f830198916",
+      "publishedPath": "lib/default-prompts.mjs"
+    },
+    {
+      "sourcePath": "lib/index.js",
+      "bytes": 223215,
+      "sha256": "4417f523edcbfb1cfe33d4b09cc6c9d7cd77c35b7d35a2880357857e308353ce",
+      "publishedPath": "lib/index.js"
+    },
+    {
+      "sourcePath": "lib/interjection-policy.mjs",
+      "bytes": 8636,
+      "sha256": "46d27cb45e59df62fba61c67ffa588dee0d276b6bf5712d317b27f79fc650f5f",
+      "publishedPath": "lib/interjection-policy.mjs"
+    },
+    {
+      "sourcePath": "lib/persistent-credentials.mjs",
+      "bytes": 14476,
+      "sha256": "9e43c113371e6c55c2142de07cddb274599f8056cb80dc8150cec0c67f653941",
+      "publishedPath": "lib/persistent-credentials.mjs"
+    },
+    {
+      "sourcePath": "lib/privacy-firewall.mjs",
+      "bytes": 11955,
+      "sha256": "017bc0bc67d0bcdbf694f01b89460c269b4549fc68710ba649c8354d0032e7e0",
+      "publishedPath": "lib/privacy-firewall.mjs"
+    },
+    {
+      "sourcePath": "lib/privacy-storage.mjs",
+      "bytes": 9281,
+      "sha256": "d9bdbf2f3f116da1a6a4011dfae8c35a3606c5a63edc5f83cb8805bb592612d1",
+      "publishedPath": "lib/privacy-storage.mjs"
+    },
+    {
+      "sourcePath": "package.json",
+      "bytes": 1949,
+      "sha256": "4499d58f501a86f013dee75a13f30767eecef88ed81943fa4514161b214d2aef",
+      "publishedPath": "package.json"
+    },
+    {
+      "sourcePath": "用户使用方式.md",
+      "bytes": 9394,
+      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
+      "publishedPath": "用户使用方式.md"
+    }
+  ]
+}
