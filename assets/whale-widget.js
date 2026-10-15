@@ -1813,14 +1813,14 @@ rowCompanionKey.appendChild(menuLabel('插件 API'));rowCompanionKey.appendChild
 menuBox.insertBefore(rowCompanionKey,row6)
 var accountBalanceHint=document.createElement('div')
 accountBalanceHint.style.cssText='font-size:11px;max-width:280px;white-space:normal;padding:6px;color:#345'
-accountBalanceHint.textContent='v1.0.2 · 账户余额与账本已启用。余额来自 DSH 的 DeepSeek 账户登录服务，不读取主聊天 Key；仅填写 API Key 的账户无法走这条余额通道。下面的插件 API 单独用于 AI 插话。'
+accountBalanceHint.textContent='v1.0.3 · 余额可使用下方已保存并确认的 DeepSeek 官方插件 Key，无需升级 DSH 或先选择聊天模型。未配置时仍可使用宿主账户余额；不会读取主聊天 Key。'
 menuBox.insertBefore(accountBalanceHint,row6)
 function openCompanionApi(){
   if(document.getElementById('dshw-api-dialog'))return
   var dialog=document.createElement('dialog');dialog.id='dshw-api-dialog'
   dialog.style.cssText='width:min(560px,90vw);max-height:85vh;overflow:auto;border:1px solid #9eb5b3;border-radius:12px;padding:20px;background:#fff;color:#183638;font:14px/1.6 sans-serif'
   var title=document.createElement('h3');title.textContent='插件 API 与模型 · 防火墙增强版';dialog.appendChild(title)
-  var entryNote=document.createElement('p');entryNote.textContent='这里是 AI 插话的独立 API 设置。旧余额设置已停用；无需填写凭据名、币种或余额接口。选择服务商并确认地址，填写 Key 后保存；选择模型后再次保存，最后在菜单点击“开始”。';dialog.appendChild(entryNote)
+  var entryNote=document.createElement('p');entryNote.textContent='这里配置挂件的独立 API。选择 DeepSeek 官方服务并保存、确认 Key 后即可查询余额，不需要凭据名或余额接口；AI 插话还需选择模型并保存，最后点击“开始”。';dialog.appendChild(entryNote)
   var note=document.createElement('p');note.textContent='防火墙增强版：人设和对话只在本次运行的内存中保留。API 仍需联网；仅向确认的接口发送通过敏感信息检查的最近一轮问答。正在读取 Key 保存方式。';dialog.appendChild(note)
   function field(label,tag,id){var wrap=document.createElement('label');wrap.style.cssText='display:block;margin:10px 0';wrap.appendChild(document.createTextNode(label+' '));var el=document.createElement(tag);el.id='dshw-api-'+id;el.style.cssText='display:block;box-sizing:border-box;width:100%;padding:7px;color:#183638;background:white;border:1px solid #aabcbc;border-radius:5px';wrap.appendChild(el);dialog.appendChild(wrap);return el}
   function option(select,value,label){var el=document.createElement('option');el.value=value;el.textContent=label;select.appendChild(el)}
@@ -1832,7 +1832,7 @@ function openCompanionApi(){
   var model=field('模型 ID（也可手动填写）','input','model');model.spellcheck=false
   var choices=field('已保存接口的模型列表','select','models');option(choices,'','点击“获取模型”后选择')
   var json=field('要求 JSON 输出（兼容接口不支持时可关闭）','input','json');json.type='checkbox';json.style.width='auto'
-  var consent=field('我确认所选 API 可接收此 Key 和通过隐私检查的近期问答；我信任上方地址','input','consent');consent.type='checkbox';consent.style.width='auto'
+  var consent=field('我确认所选 API 可接收此 Key、模型查询和通过隐私检查的近期问答；DeepSeek 官方 Key 也用于查询余额。我信任上方地址','input','consent');consent.type='checkbox';consent.style.width='auto'
   var warning=document.createElement('p');warning.style.cssText='font-size:12px;color:#805000';warning.textContent='自定义服务仅支持公网 HTTPS 443。反代运营者能够读取你发给它的 Key；插件无法验证其可信度。模型列表不代表所有模型都支持文本插话或都有调用权限。';dialog.appendChild(warning)
   var msg=document.createElement('p');msg.setAttribute('role','status');msg.style.cssText='overflow-wrap:anywhere;min-height:2em';dialog.appendChild(msg)
   var actions=document.createElement('div');actions.style.cssText='display:flex;gap:8px;flex-wrap:wrap';dialog.appendChild(actions)
@@ -1855,7 +1855,7 @@ function openCompanionApi(){
     note.textContent=persistent?'防火墙增强版：Key 用本机 Windows 账户加密保存，无插件定时失效；已成功保存且文件完好时，同机同一账户重启可恢复，不需重复填写。转移电脑或更换 Windows 账户不能直接解密。人设和对话仍仅本次内存保留，API 仍需联网。仅向确认的接口发送经过敏感信息检查的近期问答。':'防火墙增强版：'+companionKeyStorageLabel(d)+'。人设和对话仍仅本次内存保留，API 仍需联网；仅向确认的接口发送通过敏感信息检查的近期问答。';
     hint.textContent=companionApiKeyNotice(d);msg.textContent=d.error||(d.privacy&&d.privacy.ready===false?d.privacy.notice||'加密存储未就绪，请检查防火墙状态':'');
   }
-  save.addEventListener('click',async function(){if(busy)return;pending(true);msg.textContent='正在保存…';var input={provider:provider.value,key:key.value,baseUrl:base.value.trim(),protocol:proto.value,model:model.value.trim(),jsonMode:json.checked,confirmEndpoint:consent.checked?base.value.trim().replace(/\/+$/,''):''};key.value='';try{var d=await companionRequest('/dsh-whale/companion-api.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)});input.key='';if(!closed){apply(d);msg.textContent=d.error||(d.privacy&&d.privacy.egressEnabled===false?'已保存并暂停插话。'+companionApiKeyNotice(d):'已保存并暂停插话，无需重启。可获取模型、选择后再次保存，最后手动点击菜单“开始”。');pollCompanionKey();pollCompanionStatus()}}catch(e){if(!closed)msg.textContent=e.message}finally{input.key='';pending(false)}})
+  save.addEventListener('click',async function(){if(busy)return;pending(true);msg.textContent='正在保存…';var input={provider:provider.value,key:key.value,baseUrl:base.value.trim(),protocol:proto.value,model:model.value.trim(),jsonMode:json.checked,confirmEndpoint:consent.checked?base.value.trim().replace(/\/+$/,''):''};key.value='';try{var d=await companionRequest('/dsh-whale/companion-api.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)});input.key='';if(!closed){apply(d);msg.textContent=d.error||(d.privacy&&d.privacy.egressEnabled===false?'已保存并暂停插话。'+companionApiKeyNotice(d):'已保存并暂停插话，无需重启。可获取模型、选择后再次保存，最后手动点击菜单“开始”。');pollCompanionKey();pollCompanionStatus();refresh(true)}}catch(e){if(!closed)msg.textContent=e.message}finally{input.key='';pending(false)}})
   fetchModels.addEventListener('click',async function(){if(busy)return;if(!companionUsableApiKey(saved)||fingerprint()!==[saved.provider,saved.baseUrl,saved.protocol].join('\n')||key.value){msg.textContent='请先保存服务商、地址和 Key，再获取模型。';return}var rev=revision;pending(true);msg.textContent='正在向已保存的接口获取模型…';try{var d=await companionRequest('/dsh-whale/companion-models.json',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'},65000);if(closed||rev!==revision)return;choices.replaceChildren();option(choices,'','选择模型后点击“保存配置”');d.models.forEach(function(m){option(choices,m.id,m.id)});msg.textContent=d.models.length?'已取得 '+d.models.length+' 个模型'+(d.truncated?'（列表已截断）':'')+'，也可手动填写模型 ID。':'此接口未返回模型，可手动填写模型 ID。'}catch(e){if(!closed)msg.textContent=e.message+'；仍可手动填写模型 ID。'}finally{pending(false)}})
   del.addEventListener('click',async function(){if(busy||!confirm(companionPersistentKey(saved)?'删除此插件的 Key 及本机加密保存副本？以后需重新填写。DSH 主聊天 Key 不受影响。':'删除此插件的独立 Key？DSH 主聊天 Key 不受影响。'))return;pending(true);key.value='';try{var d=await companionRequest('/dsh-whale/companion-api.json',{method:'DELETE'});if(!closed){apply(d);msg.textContent='插件 Key 及其本地保存已移除，API 外发仍禁用，插话已暂停。无需重启；请重新填写 Key、确认目标地址与模型并保存，之后手动点击菜单“开始”。';pollCompanionKey();pollCompanionStatus()}}catch(e){if(!closed)msg.textContent=e.message}finally{pending(false)}})
   function finish(){closed=true;key.value='';dialog.remove()}
@@ -3700,7 +3700,7 @@ function buildUsageSettingsArea() {
 // —— 手动额度编辑器（订阅 / 资源包：厂商没有额度接口，已用值手填）——
 // 注意：保存后不重开子菜单（v697 起），所以没有 after 回调参数
 function openModelQuotaEditor(modelId) {
-  if ((apiModelById(modelId)||{}).balanceSource === 'account') return
+  if (['account','plugin-api'].includes((apiModelById(modelId)||{}).balanceSource)) return
   try {
     closeApiModelPanel()
     var m = apiModelById(modelId)
@@ -3881,7 +3881,7 @@ function openApiModelMenu(modelId) {
       if (!b || !b.on) return '已关闭'
       return '今日已用 ≥ ' + (b.amount != null ? b.amount : 20) + ' 时提醒'
     }, function () { openModelAlertBudget(modelId, 'budget', function () { openApiModelMenu(modelId) }) })
-    if (m.balanceSource !== 'account') rowOf('额度（订阅/资源包）', function () { return apiQuotaSummary(modelId) },
+    if (!['account','plugin-api'].includes(m.balanceSource)) rowOf('额度（订阅/资源包）', function () { return apiQuotaSummary(modelId) },
       function () { openModelQuotaEditor(modelId) })
     // Codex 模式：开关（v748 从主菜单挪到这里）+ 只读展示本地会话统计（机器级）
     // 注意：开关按「是不是 Codex 模型」（apiCodexOf 非空）显示，**不能**按 .ok 判断 ——
@@ -3994,7 +3994,7 @@ function openApiModelMenu(modelId) {
       var accAmt = (acc && typeof acc.amount === 'number') ? acc.amount : m.todayUsage
       var accInfo = (acc && acc.firstObservedAt)
         ? '统计起点（北京）：' + accountingTime(acc.firstObservedAt) + '。起点前的消费未计入；观测包含此账户在其它地方的消费。'
-        : (m.ledgerNotice || '尚无余额观测：请先在 DSH 登录 DeepSeek 账户并刷新余额。插件不会读取主聊天 API Key。')
+        : (m.ledgerNotice || '尚无余额观测：请在“插件 API”保存并确认 DeepSeek 官方 Key，或在 DSH 登录 DeepSeek 账户，再刷新余额。插件不会读取主聊天 Key。')
       readonlyRow('已观测消费', ((acc && acc.label) || m.usageLabel || '已观测消费') + ' ' +
         (isFinite(Number(accAmt)) ? apiFmtMoney(accAmt, apiTodayCur(m)) : '--'), accInfo)
       // 需要用户动手的提示仍然直接显示（不藏进「?」里）
@@ -8598,7 +8598,7 @@ function renderBubblePal() {
       })
       bubblePalEl.appendChild(chip2)
       // 手动额度模块（订阅 / 资源包模型）：palette key = qt:<modelId>
-      if (am.balanceSource !== 'account') {
+      if (!['account','plugin-api'].includes(am.balanceSource)) {
       var key3 = 'qt:' + am.id
       var chip3 = document.createElement('div')
       chip3.className = 'dshwv-palchip'

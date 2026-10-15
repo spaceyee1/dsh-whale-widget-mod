@@ -5,12 +5,43 @@ import path from 'node:path';
 import {Readable} from 'node:stream';
 import {fileURLToPath} from 'node:url';
 import {PersistentCredentials} from '../lib/persistent-credentials.mjs';
+import {CompanionApi} from '../lib/companion-api.mjs';
 
 // Exercise the real plugin registration and handlers without a DSH installation,
 // real credentials, DPAPI, network access, or an existing user's data directory.
-const originalInitialize = PersistentCredentials.prototype.initialize;
-PersistentCredentials.prototype.initialize = async () => ({ok: false, error: 'fixture: no vault'});
-after(() => { PersistentCredentials.prototype.initialize = originalInitialize; });
+const localVaults = new Map();
+const vaultMethods = ['initialize', 'resolve', 'set', 'unset', 'purge', 'clear'];
+const originalVaultMethods = Object.fromEntries(vaultMethods.map(name => [name, PersistentCredentials.prototype[name]]));
+const originalApiCall = CompanionApi.prototype.call;
+PersistentCredentials.prototype.initialize = async function() {
+  return localVaults.has(this.home) ? {ok: true, error: ''} : {ok: false, error: 'fixture: no vault'};
+};
+for (const name of ['resolve', 'set', 'unset', 'purge']) {
+  PersistentCredentials.prototype[name] = async function(ref, value) {
+    const vault = localVaults.get(this.home);
+    assert.ok(vault, 'only the explicit in-memory fixture vault may be used');
+    vault.calls.push({method: name, ref});
+    if (name === 'purge') { vault.values.clear(); return; }
+    assert.match(ref, /^DSHW_COMPANION_[a-f0-9]{24}_[a-f0-9]{24}$/, 'only plugin-owned references may be read');
+    if (name === 'resolve') return vault.values.has(ref) ? {value: vault.values.get(ref)} : undefined;
+    if (name === 'set') vault.values.set(ref, value);
+    if (name === 'unset') vault.values.delete(ref);
+  };
+}
+PersistentCredentials.prototype.clear = function() {
+  localVaults.get(this.home)?.values.clear();
+  return originalVaultMethods.clear.call(this);
+};
+CompanionApi.prototype.call = function(...args) {
+  const vault = localVaults.get(this.credentials.home);
+  assert.ok(vault, 'API calls must have an explicit mock transport; real network is forbidden');
+  this.request = vault.request;
+  return originalApiCall.apply(this, args);
+};
+after(() => {
+  for (const name of vaultMethods) PersistentCredentials.prototype[name] = originalVaultMethods[name];
+  CompanionApi.prototype.call = originalApiCall;
+});
 let fixtureNumber = 0;
 const fixtureParent = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,7 +58,11 @@ function readyWallets(balance = '18.60', bonus = '1.40') {
   };
 }
 
-async function fixture(t, {account = true, response = readyWallets(), rejection = null, accountState = {status: 'ready', userId: privateAccount, token: privateToken}} = {}) {
+function pluginWallets(total = '20.00', recharge = '18.60', bonus = '1.40') {
+  return {is_available: true, balance_infos: [{currency: 'CNY', total_balance: total, topped_up_balance: recharge, granted_balance: bonus}]};
+}
+
+async function fixture(t, {account = true, pluginVault = false, response = readyWallets(), rejection = null, accountState = {status: 'ready', userId: privateAccount, token: privateToken}} = {}) {
   const tempRoot = fs.mkdtempSync(path.join(fixtureParent, 'dsh-account-balance-test-'));
   const home = path.join(tempRoot, 'home');
   fs.mkdirSync(home);
@@ -40,7 +75,21 @@ async function fixture(t, {account = true, response = readyWallets(), rejection 
   const routes = new Map();
   const listeners = new Map();
   const disposers = [];
-  const state = {response, rejection, accountState};
+  const state = {response, rejection, accountState, pluginResponse: pluginWallets(), pluginTransport: null};
+  const pluginCalls = [];
+  const vaultCalls = [];
+  if (pluginVault) localVaults.set(home, {
+    values: new Map(), calls: vaultCalls,
+    request: async (url, options) => {
+      assert.equal(url, 'https://api.deepseek.com/user/balance');
+      assert.equal(options.method, 'GET');
+      assert.equal(options.body, undefined, 'balance requests must not include conversation text');
+      pluginCalls.push({url, ...options});
+      if (state.pluginTransport) return state.pluginTransport(url, options);
+      if (state.pluginResponse instanceof Error) throw state.pluginResponse;
+      return state.pluginResponse;
+    },
+  });
   const credentials = Object.fromEntries(['resolve', 'set', 'unset'].map(method => [method, async (...args) => {
     credentialCalls.push({method, args});
     throw new Error('Host credential access forbidden in this fixture');
@@ -99,6 +148,7 @@ async function fixture(t, {account = true, response = readyWallets(), rejection 
   }
   t.after(() => {
     for (const dispose of disposers.reverse()) dispose();
+    localVaults.delete(home);
     // Only remove the exact directory created by this fixture.
     assert.equal(path.dirname(tempRoot), fixtureParent);
     assert.ok(path.basename(tempRoot).startsWith('dsh-account-balance-test-'));
@@ -127,7 +177,13 @@ async function fixture(t, {account = true, response = readyWallets(), rejection 
     return result;
   }
   return {
-    request, state, home, accountCalls, credentialCalls,
+    request, state, home, accountCalls, credentialCalls, pluginCalls, vaultCalls,
+    configurePlugin(key = 'sk-fixture-only-not-a-real-key-first', model = '') {
+      return request('/dsh-whale/companion-api.json', {method: 'PUT', body: {
+        provider: 'deepseek', baseUrl: 'https://api.deepseek.com', model,
+        confirmEndpoint: 'https://api.deepseek.com', key,
+      }});
+    },
     emit(event) {
       const session = {id: 'fixture-session', title: privateTitle};
       for (const callback of listeners.get('session/event') || []) callback(session, event);
@@ -360,4 +416,164 @@ test('read-only balance and ledger routes reject write methods before invoking t
     assert.equal(denied.status, 405);
   }
   assert.equal(f.accountCalls.length, 0);
+});
+
+test('a saved plugin DeepSeek Key provides balance, model projection and accounting without a host account service or model selection', async t => {
+  const f = await fixture(t, {account: false, pluginVault: true});
+  const key = 'sk-fixture-only-not-a-real-key-first';
+  const saved = await f.configurePlugin(key);
+  assert.equal(saved.status, 200);
+  assert.equal(saved.json.hasKey, true);
+  assert.equal(saved.json.privacy.ready, true);
+  assert.equal(saved.json.model, '', 'balance does not require a chat model');
+  assert.equal(f.pluginCalls.length, 0, 'saving does not probe a remote API');
+  const first = await f.request('/dsh-whale/balance.json');
+  assert.equal(first.status, 200);
+  assert.equal(first.json.ok, true);
+  assert.equal(first.json.balanceSource, 'plugin-api');
+  assert.equal(first.json.totalBalance, 20);
+  assert.equal(first.json.rechargeBalance, 18.6);
+  assert.equal(first.json.bonusBalance, 1.4);
+  assert.equal(first.json.currency, 'CNY');
+  assert.equal(Object.hasOwn(first.json, 'accountTag'), false);
+  const models = await f.request('/dsh-whale/api-models.json');
+  assert.equal(models.status, 200);
+  assert.equal(models.json.models.length, 1);
+  assert.equal(models.json.models[0].balanceSource, 'plugin-api');
+  assert.equal(models.json.models[0].balance, 20);
+  assert.equal(models.json.models[0].name, 'DeepSeek 插件 API 余额');
+  assert.equal(f.pluginCalls.length, 1, 'the model panel shares the balance cache');
+  f.state.pluginResponse = pluginWallets('19.50', '18.10', '1.40');
+  const refreshed = await f.request('/dsh-whale/balance.json?refresh=1');
+  assert.equal(refreshed.json.ok, true);
+  assert.equal(refreshed.json.totalBalance, 19.5);
+  assert.equal(refreshed.json.todayUsage, 0.5);
+  const records = await f.request('/dsh-whale/usage-records.json');
+  assert.equal(records.status, 200);
+  assert.equal(records.json.ok, true);
+  const adjustments = await f.request('/dsh-whale/balance-adjustments.json?modelId=deepseek');
+  assert.equal(adjustments.status, 200);
+  assert.equal(adjustments.json.ok, true);
+  assert.ok(adjustments.json.days.length);
+  for (const file of ['.dshw-usage.json', '.dshw-companion-api.json']) {
+    const text = fs.readFileSync(path.join(f.home, file), 'utf8');
+    assert.equal(text.includes(key), false, 'Key is never written to an ordinary JSON file');
+    assert.equal(text.includes(privateToken), false);
+    assert.equal(text.includes(privateText), false);
+  }
+  for (const result of [saved, first, models, refreshed, records, adjustments]) assert.equal(result.body.includes(key), false);
+  assert.ok(f.vaultCalls.some(call => call.method === 'resolve'));
+  assert.deepEqual(f.accountCalls, []);
+  f.assertRegistryUntouched();
+});
+
+test('concurrent plugin balance and model requests share one in-flight request and subsequent cache', async t => {
+  const f = await fixture(t, {account: false, pluginVault: true});
+  assert.equal((await f.configurePlugin()).status, 200);
+  let entered, release;
+  const started = new Promise(resolve => { entered = resolve; });
+  f.state.pluginTransport = () => { entered(); return new Promise(resolve => { release = resolve; }); };
+  const balance = f.request('/dsh-whale/balance.json');
+  await started;
+  const models = f.request('/dsh-whale/api-models.json');
+  const refresh = f.request('/dsh-whale/balance.json?refresh=1');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(f.pluginCalls.length, 1);
+  release(pluginWallets());
+  const [a, b, c] = await Promise.all([balance, models, refresh]);
+  assert.equal(a.json.totalBalance, 20);
+  assert.equal(b.json.models[0].balance, 20);
+  assert.equal(c.json.totalBalance, 20);
+  await f.request('/dsh-whale/balance.json');
+  await f.request('/dsh-whale/api-models.json');
+  assert.equal(f.pluginCalls.length, 1);
+  assert.deepEqual(f.accountCalls, []);
+});
+
+test('replacing the plugin Key invalidates cached and pending balances without mixing wallet ledgers', async t => {
+  const f = await fixture(t, {account: false, pluginVault: true});
+  const firstKey = 'sk-fixture-only-not-a-real-key-first';
+  const secondKey = 'sk-fixture-only-not-a-real-key-second';
+  assert.equal((await f.configurePlugin(firstKey)).status, 200);
+  assert.equal((await f.request('/dsh-whale/balance.json')).json.totalBalance, 20);
+  let entered, releaseOld;
+  const started = new Promise(resolve => { entered = resolve; });
+  f.state.pluginTransport = (_url, options) => {
+    if (options.headers.Authorization === 'Bearer ' + firstKey) {
+      entered();
+      // Deliberately ignore abort to simulate a late response from the old socket.
+      return new Promise(resolve => { releaseOld = resolve; });
+    }
+    assert.equal(options.headers.Authorization, 'Bearer ' + secondKey);
+    return pluginWallets('8.00', '8.00', '0.00');
+  };
+  const pendingOld = f.request('/dsh-whale/balance.json?refresh=1');
+  await started;
+  assert.equal((await f.configurePlugin(secondKey)).status, 200);
+  const fresh = await f.request('/dsh-whale/balance.json');
+  assert.equal(fresh.json.ok, true);
+  assert.equal(fresh.json.totalBalance, 8);
+  assert.equal(fresh.json.todayUsage, 0, 'a different Key starts a separate balance baseline');
+  releaseOld(pluginWallets('18.00', '18.00', '0.00'));
+  const stale = await pendingOld;
+  assert.equal(stale.json.ok, false);
+  assert.equal(stale.json.totalBalance, undefined, 'the late balance must never reach the caller');
+  assert.equal((await f.request('/dsh-whale/balance.json')).json.totalBalance, 8);
+  assert.equal(f.pluginCalls.length, 3, 'the old completion does not replace or invalidate the new cache');
+  f.state.pluginTransport = null;
+  f.state.pluginResponse = pluginWallets('7.50', '7.50', '0.00');
+  const next = await f.request('/dsh-whale/balance.json?refresh=1');
+  assert.equal(next.json.todayUsage, 0.5);
+  const ledger = fs.readFileSync(path.join(f.home, '.dshw-usage.json'), 'utf8');
+  assert.equal(ledger.includes(firstKey), false);
+  assert.equal(ledger.includes(secondKey), false);
+  assert.deepEqual(f.accountCalls, []);
+});
+
+test('a failed plugin balance request never falls back to a different host account or its old cached balance', async t => {
+  const f = await fixture(t, {pluginVault: true});
+  assert.equal((await f.request('/dsh-whale/balance.json')).json.totalBalance, 20);
+  assert.equal(f.accountCalls.length, 1);
+  const key = 'sk-fixture-only-not-a-real-key-first';
+  assert.equal((await f.configurePlugin(key)).status, 200);
+  f.state.pluginResponse = new Error('fixture HTTP 401 ' + key);
+  const failed = await f.request('/dsh-whale/balance.json');
+  assert.equal(failed.status, 200);
+  assert.equal(failed.json.ok, false);
+  assert.equal(failed.json.totalBalance, undefined);
+  assert.equal(failed.body.includes(key), false);
+  assert.equal(f.accountCalls.length, 1, 'plugin failure must not use the logged-in host account');
+  const projected = await f.request('/dsh-whale/api-models.json');
+  assert.equal(projected.json.models[0].balance, null);
+  assert.equal(projected.json.models[0].canAdjustBalance, false);
+  assert.equal(f.accountCalls.length, 1);
+  assert.deepEqual(f.credentialCalls, []);
+});
+
+test('a failed forced plugin balance refresh retires the successful cache and retains the plugin source', async t => {
+  const f = await fixture(t, {pluginVault: true});
+  assert.equal((await f.configurePlugin()).status, 200);
+  const first = await f.request('/dsh-whale/balance.json');
+  assert.equal(first.json.ok, true);
+  assert.equal(first.json.totalBalance, 20);
+  assert.equal(f.pluginCalls.length, 1);
+  f.state.pluginResponse = new Error('fixture HTTP 401');
+  const failed = await f.request('/dsh-whale/balance.json?refresh=1');
+  assert.equal(failed.json.ok, false);
+  assert.equal(failed.json.balanceSource, 'plugin-api');
+  assert.equal(failed.json.totalBalance, undefined);
+  assert.equal(f.pluginCalls.length, 2);
+  const ordinary = await f.request('/dsh-whale/balance.json');
+  assert.equal(ordinary.json.ok, false, 'an ordinary poll must not resurrect the pre-failure balance');
+  assert.equal(ordinary.json.balanceSource, 'plugin-api');
+  assert.equal(ordinary.json.totalBalance, undefined);
+  assert.equal(f.pluginCalls.length, 3, 'the failed refresh invalidates the previous successful cache');
+  const projected = await f.request('/dsh-whale/api-models.json');
+  assert.equal(projected.json.models[0].balance, null);
+  assert.equal(projected.json.models[0].balanceSource, 'plugin-api');
+  assert.equal(projected.json.models[0].name, 'DeepSeek 插件 API 余额');
+  assert.equal(projected.json.models[0].canAdjustBalance, false);
+  assert.equal(f.pluginCalls.length, 4);
+  assert.deepEqual(f.accountCalls, [], 'failed plugin requests never touch the available host account');
+  assert.deepEqual(f.credentialCalls, []);
 });

@@ -1,9 +1,9 @@
 {
-  "release": "v1.0.2",
+  "release": "v1.0.3",
   "captureDate": "2026-10-15",
-  "sourceVersion": "0.3.16-companion.13",
+  "sourceVersion": "0.3.16-companion.14",
   "sourceKind": "repository update based on v1.0.0 snapshot",
-  "notes": "Hashes cover canonical Git file bytes, excluding this self-referential manifest. Account-only balance and ledger restored; main-chat keys remain inaccessible. Official DeepSeek TUN mapping compatibility. Excluded asset provenance retained below.",
+  "notes": "Hashes cover canonical Git file bytes, excluding this manifest. Confirmed official plugin Key balance supported; host main-chat keys remain inaccessible. Excluded asset provenance retained below.",
   "files": [
     {
       "sourcePath": ".gitignore",
@@ -26,8 +26,8 @@
     {
       "sourcePath": "COMPANION-GUIDE.md",
       "publishedPath": "COMPANION-GUIDE.md",
-      "bytes": 9618,
-      "sha256": "dd2ce6d27e8f8d766336df69268c3eba05c4f0917cc83185645cc0d659bd8570"
+      "bytes": 9663,
+      "sha256": "0f42a591da06f3fe6cb9a5606f2d58b4a63c2853068e43590703f27cd000bcfa"
     },
     {
       "sourcePath": "CREDITS.md",
@@ -56,8 +56,8 @@
     {
       "sourcePath": "README.md",
       "publishedPath": "README.md",
-      "bytes": 8556,
-      "sha256": "5340d1a31d47054e947f97d63f9b71802eba3b6cbca8bf2065b877f149c1d46a"
+      "bytes": 7527,
+      "sha256": "33e4d04efb687fd22cf7cf1b4ac25546646b4b65fb542784bab1fd63e2e70cda"
     },
     {
       "sourcePath": "UPSTREAM-README-v0.3.16.md",
@@ -74,8 +74,8 @@
     {
       "sourcePath": "assets/whale-widget.js",
       "publishedPath": "assets/whale-widget.js",
-      "bytes": 859131,
-      "sha256": "537d16d01e31c0fa4e0bd189d619177a62a38df972d56d03179ace055ae6ae99"
+      "bytes": 859271,
+      "sha256": "5cf94b55071896e59fcbf55212d67df5a182f615ec7683bf93e3ea5e1561f3e2"
     },
     {
       "sourcePath": "cordis.patch.yml",
@@ -96,10 +96,16 @@
       "sha256": "8d35d807d2ce784aa6e423486fc9380ea5b53291dbc8d5ec8b28ce0c69fe3487"
     },
     {
+      "sourcePath": "docs/RELEASE-v1.0.3.md",
+      "publishedPath": "docs/RELEASE-v1.0.3.md",
+      "bytes": 2360,
+      "sha256": "394c8238e0a6057e8de58635eeb9b4ffcb1f894f73fdc754d8c57da6da0041b9"
+    },
+    {
       "sourcePath": "lib/account-balance.mjs",
       "publishedPath": "lib/account-balance.mjs",
-      "bytes": 4068,
-      "sha256": "ff9b6174ec65b03aebdade8cea91edb9f57364467c3b6a0b2e2fabcebcd5d95d"
+      "bytes": 4129,
+      "sha256": "de58f45cec7c11498a18b4220887380e4efe6fbfa4be47157e7cfc43e9b4f481"
     },
     {
       "sourcePath": "lib/accounting.mjs",
@@ -110,14 +116,14 @@
     {
       "sourcePath": "lib/capabilities.mjs",
       "publishedPath": "lib/capabilities.mjs",
-      "bytes": 1051,
-      "sha256": "aa48342d3327e4b47267d4327ac4cf79ff44de773630a546cc1fc5f8ca7135de"
+      "bytes": 1077,
+      "sha256": "2eec31d7b46c27ab527cc5faa73caa61aebe9b26be435b1535905c642987fe9b"
     },
     {
       "sourcePath": "lib/companion-api.mjs",
       "publishedPath": "lib/companion-api.mjs",
-      "bytes": 23431,
-      "sha256": "7dbf437ec1788588ddc730ac2a7a7ce2dfd5172288e8d6adf4fab5601bf1cb78"
+      "bytes": 25392,
+      "sha256": "46c8f417574c84dae85b1456041cd71f780f3b342b05c82448d2afb2193020fb"
     },
     {
       "sourcePath": "lib/companion-presets.mjs",
@@ -146,8 +152,8 @@
     {
       "sourcePath": "lib/index.js",
       "publishedPath": "lib/index.js",
-      "bytes": 212560,
-      "sha256": "a0417469f2043253d599c146da5fa1422cef64a388544304a6742bd022488634"
+      "bytes": 213370,
+      "sha256": "7db6b25d04a513845277033cae9bf41454946f83844ce450087bf90eec290bbf"
     },
     {
       "sourcePath": "lib/interjection-policy.mjs",
@@ -164,8 +170,8 @@
     {
       "sourcePath": "lib/privacy-firewall.mjs",
       "publishedPath": "lib/privacy-firewall.mjs",
-      "bytes": 11955,
-      "sha256": "017bc0bc67d0bcdbf694f01b89460c269b4549fc68710ba649c8354d0032e7e0"
+      "bytes": 12263,
+      "sha256": "062cfad7ee498f6e49d4505d9c571ed5437c3528256f6b864b441c0f3a26db59"
     },
     {
       "sourcePath": "lib/privacy-storage.mjs",
@@ -176,14 +182,14 @@
     {
       "sourcePath": "package.json",
       "publishedPath": "package.json",
-      "bytes": 1873,
-      "sha256": "13b47e111f3c5f561c2858e743696f702ee4a2cc2e0cc3c535ba0b741c1f8fb3"
+      "bytes": 1843,
+      "sha256": "9b201972cf990a2b2e47d31105b6e153f9ec5c6dac912eb5d907623a4dd6e6de"
     },
     {
       "sourcePath": "tests/account-balance.test.mjs",
       "publishedPath": "tests/account-balance.test.mjs",
-      "bytes": 18732,
-      "sha256": "c580d1109ce98439aebb6777a1c4e1ac5376d443192ece7b81f85b387330e77c"
+      "bytes": 30372,
+      "sha256": "3ffcb45be9a9f2ed56248632e94a3506f4625d8a1495c0aeebd594a585218569"
     },
     {
       "sourcePath": "tests/account-lifecycle.test.mjs",
@@ -204,6 +210,12 @@
       "sha256": "004c63db483ecf3f6a7ff4c171838892b847c4fe80d960577a1695bf86fa6187"
     },
     {
+      "sourcePath": "tests/plugin-balance.test.mjs",
+      "publishedPath": "tests/plugin-balance.test.mjs",
+      "bytes": 7431,
+      "sha256": "5f07efe7a5757cf40770bc73058af77655d300db199487c5d6f2846d0680860a"
+    },
+    {
       "sourcePath": "tests/route-security.test.mjs",
       "publishedPath": "tests/route-security.test.mjs",
       "bytes": 3896,
@@ -212,92 +224,8 @@
     {
       "sourcePath": "用户使用方式.md",
       "publishedPath": "用户使用方式.md",
-      "bytes": 9618,
-      "sha256": "dd2ce6d27e8f8d766336df69268c3eba05c4f0917cc83185645cc0d659bd8570"
-    },
-    {
-      "sourcePath": "assets/D1.mp3",
-      "bytes": 3294,
-      "sha256": "626c0fb5dbfb2529331b98b80fa29961efbcbef6a454b36328481b61d8a0c7be",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/D2.mp3",
-      "bytes": 4232,
-      "sha256": "8327a07da3ec17f42ec6dddec8f6e2862055c7bfa5e15e3908442c517fd0f22d",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/DSH2.png",
-      "bytes": 809921,
-      "sha256": "c17efbb95a7522eeb1779e00daa1685cfe835edefd525b7dfd0ddadbc87b5387",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/DSniang02.png",
-      "bytes": 466452,
-      "sha256": "bfcdac201b183bd31cc154a9d5425dfa5c946fbbc4d6584b890b7e538776eb0d",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/DSniang1.png",
-      "bytes": 255988,
-      "sha256": "dcc456613dbb1102a4b7ef636a8b622371e33b763489d6249c434fb54248ba5c",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/Ya1.mp3",
-      "bytes": 6370,
-      "sha256": "0ad8f934ae5fa3cbd42745e086a56aa6532766618c6a620b860a795bdc7689f9",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/Ya2.mp3",
-      "bytes": 2976,
-      "sha256": "1a8998077e5e306c3088bb442ce36617261dd58200754f457469a520801c565b",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/bubble-money1.gif",
-      "bytes": 2704365,
-      "sha256": "d3c8df0f63f840292c68596b5e3f3e8ceb70c4fa612581737a9b0e3c653bdc8c",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/bubble-petpet.gif",
-      "bytes": 94643,
-      "sha256": "0b9dd76db4ea86ce3d3b07a56054ad33f25f6eb7a320472a4810859f183fc332",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/minecraft-exp-orb.wav",
-      "bytes": 59488,
-      "sha256": "aa96e35a3101b46de496271858e87214e7821a0a85316f6be1a001113ddec619",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/rua.gif",
-      "bytes": 94643,
-      "sha256": "0b9dd76db4ea86ce3d3b07a56054ad33f25f6eb7a320472a4810859f183fc332",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/task-end-a.wav",
-      "bytes": 319288,
-      "sha256": "6228bbe410658a18f06e5cd42cc055570c54905dd371cb971c0a0df88c47c417",
-      "publishedPath": null,
-      "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
+      "bytes": 9663,
+      "sha256": "0f42a591da06f3fe6cb9a5606f2d58b4a63c2853068e43590703f27cd000bcfa"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "dsh-whale-widget",
-  "version": "0.3.16-companion.13",
+  "version": "0.3.16-companion.14",
   "description": "MeteorNOX DSH 小鲸鱼基础上的 spceyee AI 插话防火墙增强版：Windows 当前账户加密保存 Key、通用 API 和隐私保护；原作者与素材来源完整保留",
   "keywords": [
     "dsh",
@@ -54,9 +54,9 @@
     "upstreamAuthor": "MeteorNOX",
     "extensionMaintainer": "spceyee",
     "distribution": "separate-collaboration-extension",
-    "previousExtensionVersion": "0.3.16-companion.12",
-    "extensionChange": "按独立能力恢复 DSH 账户余额与账本；禁止主聊天 Key 回退；路由标记退出鉴权；新增账户隔离和凭据访问回归测试。",
-    "groupFileVersion": "0.3.16c13"
+    "previousExtensionVersion": "0.3.16-companion.13",
+    "extensionChange": "使用明确确认的 DeepSeek 官方插件 Key 查询余额；保留宿主账户服务与账本，不读取主聊天 Key。",
+    "groupFileVersion": "0.3.16c14"
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs"
