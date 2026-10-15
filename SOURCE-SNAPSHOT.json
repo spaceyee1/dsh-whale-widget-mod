@@ -1,9 +1,9 @@
 {
-  "release": "v1.0.1",
+  "release": "v1.0.1 + network diagnostics",
   "captureDate": "2026-10-15",
   "sourceVersion": "0.3.16-companion.12",
   "sourceKind": "repository update based on v1.0.0 snapshot",
-  "notes": "Updated API editor entry points and guidance; hashes describe current published files. Assets remain excluded.",
+  "notes": "Updated API editor entry points and guidance; hashes describe current published files. Assets remain excluded. Network diagnostics patch distinguishes Fake-IP, DNS and TLS errors without exposing raw error messages.",
   "files": [
     {
       "sourcePath": "ATTRIBUTION.md",
@@ -151,8 +151,8 @@
     },
     {
       "sourcePath": "lib/companion-api.mjs",
-      "bytes": 21182,
-      "sha256": "b06a95969392f94c5b472308facc25950902e592d27bcf4201510a7701aca0cf",
+      "bytes": 22942,
+      "sha256": "30cc166da9c2754d835c360e6570c9bb7e291468a2f963100468ebcbbdee5228",
       "publishedPath": "lib/companion-api.mjs"
     },
     {
