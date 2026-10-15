@@ -4,7 +4,7 @@
 
 **感谢原作者 [MeteorNOX](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commits?author=MeteorNOX)，以及所有上游贡献者。** 改版维护：spceyee / [spaceyee1](https://github.com/spaceyee1)。全部鸣谢见 [CREDITS.md](CREDITS.md)。
 
-> 发布包不含 EXE 安装器和原包的 12 个图片、动图、音效文件。安装前请按 [ASSETS.md](ASSETS.md) 准备自己有权使用的素材，否则原角色和音效无法完整呈现。
+> Windows 用户可以在 [v1.0.3 发布页](https://github.com/spaceyee1/dsh-whale-widget-mod/releases/tag/v1.0.3) 下载 `DSHWhale-v1.0.3-Setup-x64.exe`，无需另外安装 npm 或插件安装工具，但仍需要已安装 DSH。安装器保留已有素材，首次缺图时生成简易蓝鲸占位；原包的 12 个媒体文件不随包分发。详见 [EXE 安装说明](installer/INSTALLER-GUIDE.md) 和 [素材说明](ASSETS.md)。
 
 ## v1.0.3：用插件 Key 查询余额
 
@@ -35,6 +35,8 @@
 当前策略定义在 `lib/capabilities.mjs`。插件官方 Key 余额、账户余额与账本启用；旧 API Key 余额、宿主凭据编辑、探活和 Codex 日志扫描仍禁用。历史文档若与这里冲突，以本 README 和 v1.0.3 更新说明为准。
 
 ## 使用前提与安装
+
+**推荐 Windows 用户使用 EXE：**退出 DSH，打开安装器，选择实际使用的 profile 并点击“安装到 DSH”。安装器会先备份旧挂件，保留 Key 和用户设置。安装后重开 DSH，原先被关闭的挂件仍需在插件管理里启用。以下为手动源码安装方式。
 
 需要已安装 DeepSeek Harness，并确认实际使用的 profile。使用下面的 CLI 安装命令还需要 Node.js/npm 和 PATH 中可用的 `pnpm`。加密保存 Key 的实现依赖 Windows 当前账户；其它系统的兼容性没有在本次验证。
 
@@ -70,6 +72,8 @@ Key 状态、模式和操作说明见 [COMPANION-GUIDE.md](COMPANION-GUIDE.md)�
 近期问答经过本插件的敏感信息规则检查后才用于插话，相关规则无法识别所有秘密。人设、对话缓存和气泡正文按本版设计只保留在本次运行内存中；这不代表宿主、系统或云端服务没有日志。所谓“防火墙增强”指插件自身的限制，不是 Windows 全局防火墙或绝对防泄露保证。
 
 本仓库没有复制用户配置、Key 密文、账本、会话记录或用户自定义资源。
+
+`SOURCE-SNAPSHOT.json` 记录的是 `v1.0.3` 标签对应源码 ZIP 的文件字节。安装器及其文档是随后增加的独立构建层，不修改该标签或已发布源码包；构建入口和验证脚本见 [installer](installer/README.md)。
 
 ## 验证与排障
 

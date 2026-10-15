@@ -23,3 +23,5 @@ Thumbs.db
 /assets/*.wav
 /assets/*.ogg
 /assets/*.ico
+/installer/build*/
+/installer/test-output*/

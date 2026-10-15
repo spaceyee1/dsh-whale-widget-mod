@@ -3,7 +3,7 @@
   "captureDate": "2026-10-15",
   "sourceVersion": "0.3.16-companion.14",
   "sourceKind": "repository update based on v1.0.0 snapshot",
-  "notes": "Hashes cover canonical Git file bytes, excluding this manifest. Confirmed official plugin Key balance supported; host main-chat keys remain inaccessible. Excluded asset provenance retained below.",
+  "notes": "Snapshot of canonical Git bytes at tag v1.0.3, used by the original source ZIP; excludes this manifest, later installer sources, and subsequent documentation changes. Confirmed official plugin Key balance supported; host main-chat keys remain inaccessible. Excluded asset provenance retained below.",
   "files": [
     {
       "sourcePath": ".gitignore",
