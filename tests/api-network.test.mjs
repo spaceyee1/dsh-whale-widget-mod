@@ -1,8 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {secureJSON,transportFailure,CompanionApi} from '../lib/companion-api.mjs';
+import {secureJSON,transportFailure,CompanionApi,destinationAddressAllowed} from '../lib/companion-api.mjs';
 test('fake IP is diagnosed before connection, without a key',async()=>{
- await assert.rejects(secureJSON('https://api.deepseek.com/models',{lookup:(host,opts,done)=>done(null,[{address:'198.18.0.43',family:4}])}),e=>e.code==='API_FAKE_IP'&&e.message.includes('Fake-IP'));
+ await assert.rejects(secureJSON('https://api.example.com/models',{lookup:(host,opts,done)=>done(null,[{address:'198.18.0.43',family:4}])}),e=>e.code==='API_FAKE_IP'&&e.message.includes('Fake-IP'));
+});
+test('official DeepSeek TUN mapping does not allow private hosts or lookalike domains',()=>{
+ assert.equal(destinationAddressAllowed('api.deepseek.com','198.18.0.43'),true);
+ assert.equal(destinationAddressAllowed('api.deepseek.com','198.19.255.255'),true);
+ for(const host of ['custom.example.com','api.deepseek.com.evil.example','api.deepseek.com.'])assert.equal(destinationAddressAllowed(host,'198.18.0.43'),false);
+ for(const ip of ['127.0.0.1','10.0.0.1','192.168.1.1','169.254.169.254','::1','198.18.999.1'])assert.equal(destinationAddressAllowed('api.deepseek.com',ip),false);
 });
 test('private address stays blocked and DNS failure stays identifiable',async()=>{
  await assert.rejects(secureJSON('https://api.deepseek.com/models',{lookup:(h,o,cb)=>cb(null,[{address:'127.0.0.1',family:4}])}),e=>e.code==='API_RESTRICTED_DNS');

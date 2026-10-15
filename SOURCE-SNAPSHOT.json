@@ -1,51 +1,219 @@
 {
-  "release": "v1.0.1 + network diagnostics",
+  "release": "v1.0.2",
   "captureDate": "2026-10-15",
-  "sourceVersion": "0.3.16-companion.12",
+  "sourceVersion": "0.3.16-companion.13",
   "sourceKind": "repository update based on v1.0.0 snapshot",
-  "notes": "Updated API editor entry points and guidance; hashes describe current published files. Assets remain excluded. Network diagnostics patch distinguishes Fake-IP, DNS and TLS errors without exposing raw error messages.",
+  "notes": "Hashes cover canonical Git file bytes, excluding this self-referential manifest. Account-only balance and ledger restored; main-chat keys remain inaccessible. Official DeepSeek TUN mapping compatibility. Excluded asset provenance retained below.",
   "files": [
     {
+      "sourcePath": ".gitignore",
+      "publishedPath": ".gitignore",
+      "bytes": 302,
+      "sha256": "5c2982b8f7211a71c8f8bbe634133c0b01eb9ad68061d9b0cc74a3ab7b63c15d"
+    },
+    {
+      "sourcePath": "ASSETS.md",
+      "publishedPath": "ASSETS.md",
+      "bytes": 5788,
+      "sha256": "7dfd84e30aed06fd7293899164b9868778022dfe957dbc94db35f7c762916d2b"
+    },
+    {
       "sourcePath": "ATTRIBUTION.md",
+      "publishedPath": "ATTRIBUTION.md",
       "bytes": 2612,
-      "sha256": "96b0205b34d99672bc11e47b3d543d11902886d61c433df890ebe5756a80d8a8",
-      "publishedPath": "ATTRIBUTION.md"
+      "sha256": "96b0205b34d99672bc11e47b3d543d11902886d61c433df890ebe5756a80d8a8"
     },
     {
       "sourcePath": "COMPANION-GUIDE.md",
-      "bytes": 9394,
-      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
-      "publishedPath": "COMPANION-GUIDE.md"
+      "publishedPath": "COMPANION-GUIDE.md",
+      "bytes": 9618,
+      "sha256": "dd2ce6d27e8f8d766336df69268c3eba05c4f0917cc83185645cc0d659bd8570"
+    },
+    {
+      "sourcePath": "CREDITS.md",
+      "publishedPath": "CREDITS.md",
+      "bytes": 6772,
+      "sha256": "f6ba2ed47b25a750153bc5068842c55750472002a1e49f354bcfa4c0d0ca787d"
+    },
+    {
+      "sourcePath": "DEBUG.md",
+      "publishedPath": "DEBUG.md",
+      "bytes": 7529,
+      "sha256": "f02128bbe37a93006b6d4877356412d527af48906954e4fc8ffa9835d8f1669e"
     },
     {
       "sourcePath": "LICENSE",
+      "publishedPath": "LICENSE",
       "bytes": 1066,
-      "sha256": "a1e46acc1349f63e9d1e26a8a600823e010fedcaff20fc1eceb6564432bf829b",
-      "publishedPath": "LICENSE"
+      "sha256": "a1e46acc1349f63e9d1e26a8a600823e010fedcaff20fc1eceb6564432bf829b"
     },
     {
       "sourcePath": "PROVENANCE.md",
+      "publishedPath": "PROVENANCE.md",
       "bytes": 2594,
-      "sha256": "798179d23d620e5f8be4220b75df008c97ebc821d8f69d2842d8af9cf69726e8",
-      "publishedPath": "PROVENANCE.md"
+      "sha256": "798179d23d620e5f8be4220b75df008c97ebc821d8f69d2842d8af9cf69726e8"
     },
     {
       "sourcePath": "README.md",
-      "bytes": 52237,
-      "sha256": "dcb7934b66ee7f7225dd4cb235f1a17825b8e9356f7682285c17586ae3a34c4e",
-      "publishedPath": "docs/INSTALLED-README.md"
+      "publishedPath": "README.md",
+      "bytes": 8556,
+      "sha256": "5340d1a31d47054e947f97d63f9b71802eba3b6cbca8bf2065b877f149c1d46a"
     },
     {
       "sourcePath": "UPSTREAM-README-v0.3.16.md",
+      "publishedPath": "UPSTREAM-README-v0.3.16.md",
       "bytes": 47916,
-      "sha256": "d6544b5127f667e4a22d44a2ff032b0dab8a4cd10ecc7127fb57e732ed9307f9",
-      "publishedPath": "UPSTREAM-README-v0.3.16.md"
+      "sha256": "d6544b5127f667e4a22d44a2ff032b0dab8a4cd10ecc7127fb57e732ed9307f9"
     },
     {
       "sourcePath": "UPSTREAM-SOURCE.md",
+      "publishedPath": "UPSTREAM-SOURCE.md",
       "bytes": 4037,
-      "sha256": "eb1dc74c63e7bb2565c376550be0744633d059f08bc242f01da15ee78bcf4833",
-      "publishedPath": "UPSTREAM-SOURCE.md"
+      "sha256": "eb1dc74c63e7bb2565c376550be0744633d059f08bc242f01da15ee78bcf4833"
+    },
+    {
+      "sourcePath": "assets/whale-widget.js",
+      "publishedPath": "assets/whale-widget.js",
+      "bytes": 859131,
+      "sha256": "537d16d01e31c0fa4e0bd189d619177a62a38df972d56d03179ace055ae6ae99"
+    },
+    {
+      "sourcePath": "cordis.patch.yml",
+      "publishedPath": "cordis.patch.yml",
+      "bytes": 734,
+      "sha256": "0377f1fef5557f57a61c8bbc4b4ea86ade102797a555b84cc392eb95cebdec1a"
+    },
+    {
+      "sourcePath": "docs/INSTALLED-README.md",
+      "publishedPath": "docs/INSTALLED-README.md",
+      "bytes": 52237,
+      "sha256": "dcb7934b66ee7f7225dd4cb235f1a17825b8e9356f7682285c17586ae3a34c4e"
+    },
+    {
+      "sourcePath": "docs/RELEASE-v1.0.2.md",
+      "publishedPath": "docs/RELEASE-v1.0.2.md",
+      "bytes": 3746,
+      "sha256": "8d35d807d2ce784aa6e423486fc9380ea5b53291dbc8d5ec8b28ce0c69fe3487"
+    },
+    {
+      "sourcePath": "lib/account-balance.mjs",
+      "publishedPath": "lib/account-balance.mjs",
+      "bytes": 4068,
+      "sha256": "ff9b6174ec65b03aebdade8cea91edb9f57364467c3b6a0b2e2fabcebcd5d95d"
+    },
+    {
+      "sourcePath": "lib/accounting.mjs",
+      "publishedPath": "lib/accounting.mjs",
+      "bytes": 11717,
+      "sha256": "2a1f91e2c79d9167f729a22c8553dc9e514eecb85f6bccf1d0d70fba46082702"
+    },
+    {
+      "sourcePath": "lib/capabilities.mjs",
+      "publishedPath": "lib/capabilities.mjs",
+      "bytes": 1051,
+      "sha256": "aa48342d3327e4b47267d4327ac4cf79ff44de773630a546cc1fc5f8ca7135de"
+    },
+    {
+      "sourcePath": "lib/companion-api.mjs",
+      "publishedPath": "lib/companion-api.mjs",
+      "bytes": 23431,
+      "sha256": "7dbf437ec1788588ddc730ac2a7a7ce2dfd5172288e8d6adf4fab5601bf1cb78"
+    },
+    {
+      "sourcePath": "lib/companion-presets.mjs",
+      "publishedPath": "lib/companion-presets.mjs",
+      "bytes": 1922,
+      "sha256": "9c4a725742481ada86827946337bd14e6f78c087ad2f765c0330916005a116a0"
+    },
+    {
+      "sourcePath": "lib/companion-route-security.mjs",
+      "publishedPath": "lib/companion-route-security.mjs",
+      "bytes": 1690,
+      "sha256": "e2307e5472b83eb1b1fe42461e23f18d4d3694f2bb02c86c28aec41b080eac89"
+    },
+    {
+      "sourcePath": "lib/companion-service.mjs",
+      "publishedPath": "lib/companion-service.mjs",
+      "bytes": 23528,
+      "sha256": "229b735e3a8ca819a2b0d9fd9287caa5dcf4ded1e52086a09f4f19ad6522fcdd"
+    },
+    {
+      "sourcePath": "lib/default-prompts.mjs",
+      "publishedPath": "lib/default-prompts.mjs",
+      "bytes": 866,
+      "sha256": "80c534d4a06c47afd6200a2ca2a3dde7bd3cf7ffd97e4a6cbe1380f830198916"
+    },
+    {
+      "sourcePath": "lib/index.js",
+      "publishedPath": "lib/index.js",
+      "bytes": 212560,
+      "sha256": "a0417469f2043253d599c146da5fa1422cef64a388544304a6742bd022488634"
+    },
+    {
+      "sourcePath": "lib/interjection-policy.mjs",
+      "publishedPath": "lib/interjection-policy.mjs",
+      "bytes": 8636,
+      "sha256": "46d27cb45e59df62fba61c67ffa588dee0d276b6bf5712d317b27f79fc650f5f"
+    },
+    {
+      "sourcePath": "lib/persistent-credentials.mjs",
+      "publishedPath": "lib/persistent-credentials.mjs",
+      "bytes": 14476,
+      "sha256": "9e43c113371e6c55c2142de07cddb274599f8056cb80dc8150cec0c67f653941"
+    },
+    {
+      "sourcePath": "lib/privacy-firewall.mjs",
+      "publishedPath": "lib/privacy-firewall.mjs",
+      "bytes": 11955,
+      "sha256": "017bc0bc67d0bcdbf694f01b89460c269b4549fc68710ba649c8354d0032e7e0"
+    },
+    {
+      "sourcePath": "lib/privacy-storage.mjs",
+      "publishedPath": "lib/privacy-storage.mjs",
+      "bytes": 9281,
+      "sha256": "d9bdbf2f3f116da1a6a4011dfae8c35a3606c5a63edc5f83cb8805bb592612d1"
+    },
+    {
+      "sourcePath": "package.json",
+      "publishedPath": "package.json",
+      "bytes": 1873,
+      "sha256": "13b47e111f3c5f561c2858e743696f702ee4a2cc2e0cc3c535ba0b741c1f8fb3"
+    },
+    {
+      "sourcePath": "tests/account-balance.test.mjs",
+      "publishedPath": "tests/account-balance.test.mjs",
+      "bytes": 18732,
+      "sha256": "c580d1109ce98439aebb6777a1c4e1ac5376d443192ece7b81f85b387330e77c"
+    },
+    {
+      "sourcePath": "tests/account-lifecycle.test.mjs",
+      "publishedPath": "tests/account-lifecycle.test.mjs",
+      "bytes": 1659,
+      "sha256": "467743193420d44b8d3fbee25c96d391f1fdf51ae1665f08373265b13b683bd6"
+    },
+    {
+      "sourcePath": "tests/api-entry.test.mjs",
+      "publishedPath": "tests/api-entry.test.mjs",
+      "bytes": 2324,
+      "sha256": "e890c9c190a1b237d2c77fc398b9be7b2b4e0b29af8d6df98203f5070593a949"
+    },
+    {
+      "sourcePath": "tests/api-network.test.mjs",
+      "publishedPath": "tests/api-network.test.mjs",
+      "bytes": 2072,
+      "sha256": "004c63db483ecf3f6a7ff4c171838892b847c4fe80d960577a1695bf86fa6187"
+    },
+    {
+      "sourcePath": "tests/route-security.test.mjs",
+      "publishedPath": "tests/route-security.test.mjs",
+      "bytes": 3896,
+      "sha256": "6c4a91c3d3147a39aaca665a961b7b2a837e10c53ef01fc5a1f5b2a64d4f6e75"
+    },
+    {
+      "sourcePath": "用户使用方式.md",
+      "publishedPath": "用户使用方式.md",
+      "bytes": 9618,
+      "sha256": "dd2ce6d27e8f8d766336df69268c3eba05c4f0917cc83185645cc0d659bd8570"
     },
     {
       "sourcePath": "assets/D1.mp3",
@@ -130,96 +298,6 @@
       "sha256": "6228bbe410658a18f06e5cd42cc055570c54905dd371cb971c0a0df88c47c417",
       "publishedPath": null,
       "excludedReason": "Media redistribution permission for this derivative repository has not been established; not included in public source release."
-    },
-    {
-      "sourcePath": "assets/whale-widget.js",
-      "bytes": 858474,
-      "sha256": "ea021f6b8b22decce3ded4b7fda339115df8ccb5fe1a48d5b29eefc0e5ecda78",
-      "publishedPath": "assets/whale-widget.js"
-    },
-    {
-      "sourcePath": "cordis.patch.yml",
-      "bytes": 734,
-      "sha256": "0377f1fef5557f57a61c8bbc4b4ea86ade102797a555b84cc392eb95cebdec1a",
-      "publishedPath": "cordis.patch.yml"
-    },
-    {
-      "sourcePath": "lib/accounting.mjs",
-      "bytes": 11717,
-      "sha256": "2a1f91e2c79d9167f729a22c8553dc9e514eecb85f6bccf1d0d70fba46082702",
-      "publishedPath": "lib/accounting.mjs"
-    },
-    {
-      "sourcePath": "lib/companion-api.mjs",
-      "bytes": 22942,
-      "sha256": "30cc166da9c2754d835c360e6570c9bb7e291468a2f963100468ebcbbdee5228",
-      "publishedPath": "lib/companion-api.mjs"
-    },
-    {
-      "sourcePath": "lib/companion-presets.mjs",
-      "bytes": 1922,
-      "sha256": "9c4a725742481ada86827946337bd14e6f78c087ad2f765c0330916005a116a0",
-      "publishedPath": "lib/companion-presets.mjs"
-    },
-    {
-      "sourcePath": "lib/companion-route-security.mjs",
-      "bytes": 1058,
-      "sha256": "4e09fba98c3b645e6412da0246ad6545d161c078816bbd679fda39e2f88f6734",
-      "publishedPath": "lib/companion-route-security.mjs"
-    },
-    {
-      "sourcePath": "lib/companion-service.mjs",
-      "bytes": 23528,
-      "sha256": "229b735e3a8ca819a2b0d9fd9287caa5dcf4ded1e52086a09f4f19ad6522fcdd",
-      "publishedPath": "lib/companion-service.mjs"
-    },
-    {
-      "sourcePath": "lib/default-prompts.mjs",
-      "bytes": 866,
-      "sha256": "80c534d4a06c47afd6200a2ca2a3dde7bd3cf7ffd97e4a6cbe1380f830198916",
-      "publishedPath": "lib/default-prompts.mjs"
-    },
-    {
-      "sourcePath": "lib/index.js",
-      "bytes": 223308,
-      "sha256": "ba5087590a1f437366ca082263bcaef695fd4e9040692aba914a91bd65fa80e1",
-      "publishedPath": "lib/index.js"
-    },
-    {
-      "sourcePath": "lib/interjection-policy.mjs",
-      "bytes": 8636,
-      "sha256": "46d27cb45e59df62fba61c67ffa588dee0d276b6bf5712d317b27f79fc650f5f",
-      "publishedPath": "lib/interjection-policy.mjs"
-    },
-    {
-      "sourcePath": "lib/persistent-credentials.mjs",
-      "bytes": 14476,
-      "sha256": "9e43c113371e6c55c2142de07cddb274599f8056cb80dc8150cec0c67f653941",
-      "publishedPath": "lib/persistent-credentials.mjs"
-    },
-    {
-      "sourcePath": "lib/privacy-firewall.mjs",
-      "bytes": 11955,
-      "sha256": "017bc0bc67d0bcdbf694f01b89460c269b4549fc68710ba649c8354d0032e7e0",
-      "publishedPath": "lib/privacy-firewall.mjs"
-    },
-    {
-      "sourcePath": "lib/privacy-storage.mjs",
-      "bytes": 9281,
-      "sha256": "d9bdbf2f3f116da1a6a4011dfae8c35a3606c5a63edc5f83cb8805bb592612d1",
-      "publishedPath": "lib/privacy-storage.mjs"
-    },
-    {
-      "sourcePath": "package.json",
-      "bytes": 1897,
-      "sha256": "9d283a5d69c4c73a5978d0ee8dce3abd410481c9431941136ae09f5a7aea94eb",
-      "publishedPath": "package.json"
-    },
-    {
-      "sourcePath": "用户使用方式.md",
-      "bytes": 9394,
-      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
-      "publishedPath": "用户使用方式.md"
     }
   ]
 }

@@ -1811,6 +1811,10 @@ companionApiOpen.addEventListener('click',function(e){e.stopPropagation();openCo
 var rowCompanionKey=menuRow()
 rowCompanionKey.appendChild(menuLabel('插件 API'));rowCompanionKey.appendChild(companionApiSummary);rowCompanionKey.appendChild(companionApiOpen)
 menuBox.insertBefore(rowCompanionKey,row6)
+var accountBalanceHint=document.createElement('div')
+accountBalanceHint.style.cssText='font-size:11px;max-width:280px;white-space:normal;padding:6px;color:#345'
+accountBalanceHint.textContent='v1.0.2 · 账户余额与账本已启用。余额来自 DSH 的 DeepSeek 账户登录服务，不读取主聊天 Key；仅填写 API Key 的账户无法走这条余额通道。下面的插件 API 单独用于 AI 插话。'
+menuBox.insertBefore(accountBalanceHint,row6)
 function openCompanionApi(){
   if(document.getElementById('dshw-api-dialog'))return
   var dialog=document.createElement('dialog');dialog.id='dshw-api-dialog'
@@ -3696,6 +3700,7 @@ function buildUsageSettingsArea() {
 // —— 手动额度编辑器（订阅 / 资源包：厂商没有额度接口，已用值手填）——
 // 注意：保存后不重开子菜单（v697 起），所以没有 after 回调参数
 function openModelQuotaEditor(modelId) {
+  if ((apiModelById(modelId)||{}).balanceSource === 'account') return
   try {
     closeApiModelPanel()
     var m = apiModelById(modelId)
@@ -3876,7 +3881,7 @@ function openApiModelMenu(modelId) {
       if (!b || !b.on) return '已关闭'
       return '今日已用 ≥ ' + (b.amount != null ? b.amount : 20) + ' 时提醒'
     }, function () { openModelAlertBudget(modelId, 'budget', function () { openApiModelMenu(modelId) }) })
-    rowOf('额度（订阅/资源包）', function () { return apiQuotaSummary(modelId) },
+    if (m.balanceSource !== 'account') rowOf('额度（订阅/资源包）', function () { return apiQuotaSummary(modelId) },
       function () { openModelQuotaEditor(modelId) })
     // Codex 模式：开关（v748 从主菜单挪到这里）+ 只读展示本地会话统计（机器级）
     // 注意：开关按「是不是 Codex 模型」（apiCodexOf 非空）显示，**不能**按 .ok 判断 ——
@@ -3988,8 +3993,8 @@ function openApiModelMenu(modelId) {
       var acc = m.accounting || null
       var accAmt = (acc && typeof acc.amount === 'number') ? acc.amount : m.todayUsage
       var accInfo = (acc && acc.firstObservedAt)
-        ? '统计起点（北京）：' + accountingTime(acc.firstObservedAt) + '。起点前的消费未计入；该账户的观测包含同一个 key 在别处的消费。'
-        : '尚无余额观测：先配置 DeepSeek API key 并成功刷新一次余额。'
+        ? '统计起点（北京）：' + accountingTime(acc.firstObservedAt) + '。起点前的消费未计入；观测包含此账户在其它地方的消费。'
+        : (m.ledgerNotice || '尚无余额观测：请先在 DSH 登录 DeepSeek 账户并刷新余额。插件不会读取主聊天 API Key。')
       readonlyRow('已观测消费', ((acc && acc.label) || m.usageLabel || '已观测消费') + ' ' +
         (isFinite(Number(accAmt)) ? apiFmtMoney(accAmt, apiTodayCur(m)) : '--'), accInfo)
       // 需要用户动手的提示仍然直接显示（不藏进「?」里）
@@ -4019,7 +4024,7 @@ function openApiModelMenu(modelId) {
     }
     var btns = document.createElement('div')
     btns.className = 'dshwv-bubbtns'
-    btns.appendChild(apiBtn('密钥 / 接口', 'dshwv-bubbtn dshwv-bubbtn-no', function () { openApiModelPanel(modelId) }))
+    btns.appendChild(apiBtn('AI 插话 API', 'dshwv-bubbtn dshwv-bubbtn-no', function () { openApiModelPanel(modelId) }))
     btns.appendChild(apiBtn('关闭', 'dshwv-bubbtn dshwv-bubbtn-ok', closeApiModelPanel))
     card.appendChild(btns)
     mask.appendChild(card)
@@ -8593,6 +8598,7 @@ function renderBubblePal() {
       })
       bubblePalEl.appendChild(chip2)
       // 手动额度模块（订阅 / 资源包模型）：palette key = qt:<modelId>
+      if (am.balanceSource !== 'account') {
       var key3 = 'qt:' + am.id
       var chip3 = document.createElement('div')
       chip3.className = 'dshwv-palchip'
@@ -8609,6 +8615,7 @@ function renderBubblePal() {
         bubbleDragKey = key3
       })
       bubblePalEl.appendChild(chip3)
+      }
     })
   } else if (apiModelsError) {
     var chipErr = document.createElement('div')
