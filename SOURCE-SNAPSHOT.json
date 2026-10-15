@@ -1,50 +1,50 @@
 {
-  "release": "v1.0.0",
-  "captureDate": "2026-10-12",
-  "sourceVersion": "0.3.16-companion.11",
-  "sourceKind": "snapshot of the currently installed DSH web-desktop profile plugin; no DSH process running at capture",
-  "notes": "Runtime source files are unchanged. New release documentation is not part of the installed-source manifest. Runtime package and plugin versions are retained for traceability; v1.0.0 names this repository snapshot.",
+  "release": "v1.0.1",
+  "captureDate": "2026-10-15",
+  "sourceVersion": "0.3.16-companion.12",
+  "sourceKind": "repository update based on v1.0.0 snapshot",
+  "notes": "Updated API editor entry points and guidance; hashes describe current published files. Assets remain excluded.",
   "files": [
     {
       "sourcePath": "ATTRIBUTION.md",
-      "bytes": 2612,
-      "sha256": "96b0205b34d99672bc11e47b3d543d11902886d61c433df890ebe5756a80d8a8",
+      "bytes": 2633,
+      "sha256": "9550825b6b777a55e07c02f15426aa7d5e6e4b216a15d8b3f963e685b951f40b",
       "publishedPath": "ATTRIBUTION.md"
     },
     {
       "sourcePath": "COMPANION-GUIDE.md",
-      "bytes": 9394,
-      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
+      "bytes": 9473,
+      "sha256": "3392527ecc47e29e7dbc56f24c2205bf20c9314c325d560b90bdbc58ff238ade",
       "publishedPath": "COMPANION-GUIDE.md"
     },
     {
       "sourcePath": "LICENSE",
-      "bytes": 1066,
-      "sha256": "a1e46acc1349f63e9d1e26a8a600823e010fedcaff20fc1eceb6564432bf829b",
+      "bytes": 1087,
+      "sha256": "802fde5e95248bfdb32c9de62b86e6e9db37c727f69501bdffbca12b5483b878",
       "publishedPath": "LICENSE"
     },
     {
       "sourcePath": "PROVENANCE.md",
-      "bytes": 2594,
-      "sha256": "798179d23d620e5f8be4220b75df008c97ebc821d8f69d2842d8af9cf69726e8",
+      "bytes": 2629,
+      "sha256": "04ad6c67e87840655a9dd5101833ed111e67c0dd0917d0ceea5ed74c46cc39ef",
       "publishedPath": "PROVENANCE.md"
     },
     {
       "sourcePath": "README.md",
-      "bytes": 52237,
-      "sha256": "dcb7934b66ee7f7225dd4cb235f1a17825b8e9356f7682285c17586ae3a34c4e",
+      "bytes": 52720,
+      "sha256": "55a881d344bbef5ac013b0676c043d701463eb5589ac54f463a008976f5e444e",
       "publishedPath": "docs/INSTALLED-README.md"
     },
     {
       "sourcePath": "UPSTREAM-README-v0.3.16.md",
-      "bytes": 47916,
-      "sha256": "d6544b5127f667e4a22d44a2ff032b0dab8a4cd10ecc7127fb57e732ed9307f9",
+      "bytes": 48382,
+      "sha256": "5eeea3f4d7b19917999737a1898ead8b87d3a50e3f854f6f98920dffd99b3875",
       "publishedPath": "UPSTREAM-README-v0.3.16.md"
     },
     {
       "sourcePath": "UPSTREAM-SOURCE.md",
-      "bytes": 4037,
-      "sha256": "eb1dc74c63e7bb2565c376550be0744633d059f08bc242f01da15ee78bcf4833",
+      "bytes": 4060,
+      "sha256": "d84112e60fc7b58839a3dec3812d227ef0d7997cdbf2b83edf41a24c9c51d8a9",
       "publishedPath": "UPSTREAM-SOURCE.md"
     },
     {
@@ -133,8 +133,8 @@
     },
     {
       "sourcePath": "assets/whale-widget.js",
-      "bytes": 880947,
-      "sha256": "adaeb521c0021029449055ec52b417ab4a5a5c962166b9c8e8c193b4d2ed6b7e",
+      "bytes": 858474,
+      "sha256": "ea021f6b8b22decce3ded4b7fda339115df8ccb5fe1a48d5b29eefc0e5ecda78",
       "publishedPath": "assets/whale-widget.js"
     },
     {
@@ -157,14 +157,14 @@
     },
     {
       "sourcePath": "lib/companion-presets.mjs",
-      "bytes": 1922,
-      "sha256": "9c4a725742481ada86827946337bd14e6f78c087ad2f765c0330916005a116a0",
+      "bytes": 1936,
+      "sha256": "1b3ba0e1e442688ab60995d1f10bf975bda242dbb56de7ba09893f1c9aef9599",
       "publishedPath": "lib/companion-presets.mjs"
     },
     {
       "sourcePath": "lib/companion-route-security.mjs",
-      "bytes": 1058,
-      "sha256": "4e09fba98c3b645e6412da0246ad6545d161c078816bbd679fda39e2f88f6734",
+      "bytes": 1073,
+      "sha256": "7d7b45f146e2f0f9401f9eeaa74a009d014252d3af6ec0361a8f7df7593895b4",
       "publishedPath": "lib/companion-route-security.mjs"
     },
     {
@@ -175,32 +175,32 @@
     },
     {
       "sourcePath": "lib/default-prompts.mjs",
-      "bytes": 866,
-      "sha256": "80c534d4a06c47afd6200a2ca2a3dde7bd3cf7ffd97e4a6cbe1380f830198916",
+      "bytes": 880,
+      "sha256": "6f44c05fcf7eb500a0af734de547856d92146b31a5f8ec77d308544b031b641b",
       "publishedPath": "lib/default-prompts.mjs"
     },
     {
       "sourcePath": "lib/index.js",
-      "bytes": 223215,
-      "sha256": "4417f523edcbfb1cfe33d4b09cc6c9d7cd77c35b7d35a2880357857e308353ce",
+      "bytes": 223308,
+      "sha256": "ba5087590a1f437366ca082263bcaef695fd4e9040692aba914a91bd65fa80e1",
       "publishedPath": "lib/index.js"
     },
     {
       "sourcePath": "lib/interjection-policy.mjs",
-      "bytes": 8636,
-      "sha256": "46d27cb45e59df62fba61c67ffa588dee0d276b6bf5712d317b27f79fc650f5f",
+      "bytes": 8728,
+      "sha256": "68bb7391aa07b6d3f9eda711f824b6f1684a4d366825e1077eec6f100ec96f8f",
       "publishedPath": "lib/interjection-policy.mjs"
     },
     {
       "sourcePath": "lib/persistent-credentials.mjs",
-      "bytes": 14476,
-      "sha256": "9e43c113371e6c55c2142de07cddb274599f8056cb80dc8150cec0c67f653941",
+      "bytes": 14716,
+      "sha256": "d4661f653b5499b6d829d0848fb1882d353c2732d3bcc86a2b44a9d442c7a95e",
       "publishedPath": "lib/persistent-credentials.mjs"
     },
     {
       "sourcePath": "lib/privacy-firewall.mjs",
-      "bytes": 11955,
-      "sha256": "017bc0bc67d0bcdbf694f01b89460c269b4549fc68710ba649c8354d0032e7e0",
+      "bytes": 12140,
+      "sha256": "63dcf1ab676574ca5633b9697305169575cc02f7112ca43c3d818a9655717c7e",
       "publishedPath": "lib/privacy-firewall.mjs"
     },
     {
@@ -211,14 +211,14 @@
     },
     {
       "sourcePath": "package.json",
-      "bytes": 1949,
-      "sha256": "4499d58f501a86f013dee75a13f30767eecef88ed81943fa4514161b214d2aef",
+      "bytes": 1897,
+      "sha256": "9d283a5d69c4c73a5978d0ee8dce3abd410481c9431941136ae09f5a7aea94eb",
       "publishedPath": "package.json"
     },
     {
       "sourcePath": "用户使用方式.md",
-      "bytes": 9394,
-      "sha256": "4d31fa50f793f3ace076c1d782e16726b905c502047cfebe3f6e8c0bebb808c4",
+      "bytes": 9473,
+      "sha256": "3392527ecc47e29e7dbc56f24c2205bf20c9314c325d560b90bdbc58ff238ade",
       "publishedPath": "用户使用方式.md"
     }
   ]

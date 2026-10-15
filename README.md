@@ -1,10 +1,16 @@
 # dsh whale 改版挂件
 
-**v1.0.0** — DSH 中的小鲸鱼 AI 插话挂件，提供普通陪聊、工作模式、独立 API 配置与隐私防护。
+**v1.0.1** — DSH 中的小鲸鱼 AI 插话挂件，提供普通陪聊、工作模式、独立 API 配置与隐私防护。
 
 **感谢原作者 [MeteorNOX](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/commits?author=MeteorNOX)，以及所有上游贡献者。** 改版维护：spceyee / [spaceyee1](https://github.com/spaceyee1)。全部鸣谢见 [CREDITS.md](CREDITS.md)。
 
 > 发布包不含 EXE 安装器和原包的 12 个图片、动图、音效文件。安装前请按 [ASSETS.md](ASSETS.md) 准备自己有权使用的素材，否则原角色和音效无法完整呈现。
+
+## v1.0.1 修复
+
+旧“添加模型 / 密钥接口”入口现在直接打开“插件 API”，不再让用户填写已禁用的余额表单。无需填写凭据名或币种。更新后重新启动 DSH，在“插件 API → 配置 API”选择服务商、填写 Key、确认目标地址并保存；获取或填写模型后再次保存，最后点击“开始”。DeepSeek 预设使用 `https://api.deepseek.com`，不要把其它协议的完整接口地址填入该预设。
+
+现有目的地确认、独立密钥保存及隐私检查保持启用。本次修复不代表已在反馈者电脑验证实际联网。
 
 ## 本版能做什么
 

@@ -1,6 +1,6 @@
 {
   "name": "dsh-whale-widget",
-  "version": "0.3.16-companion.11",
+  "version": "0.3.16-companion.12",
   "description": "MeteorNOX DSH 小鲸鱼基础上的 spceyee AI 插话防火墙增强版：Windows 当前账户加密保存 Key、通用 API 和隐私保护；原作者与素材来源完整保留",
   "keywords": [
     "dsh",
@@ -54,8 +54,11 @@
     "upstreamAuthor": "MeteorNOX",
     "extensionMaintainer": "spceyee",
     "distribution": "separate-collaboration-extension",
-    "previousExtensionVersion": "0.3.16-companion.10",
-    "extensionChange": "仅修正文档及版本元数据：说明插件与主聊天 Key 的作用域、运行时凭据读取和认证发送，限定测试结论；引用上游许可，不新增第三方授权。运行 JavaScript 与 .10 逐字节一致。",
-    "groupFileVersion": "0.3.16c11"
+    "previousExtensionVersion": "0.3.16-companion.11",
+    "extensionChange": "修复旧 API 编辑入口仍显示不可保存表单：统一进入插件独立 API 配置，移除添加模型对已禁用余额接口的依赖，并提供明确迁移提示。",
+    "groupFileVersion": "0.3.16c12"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
   }
 }
