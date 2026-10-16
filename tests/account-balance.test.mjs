@@ -62,7 +62,7 @@ function pluginWallets(total = '20.00', recharge = '18.60', bonus = '1.40') {
   return {is_available: true, balance_infos: [{currency: 'CNY', total_balance: total, topped_up_balance: recharge, granted_balance: bonus}]};
 }
 
-async function fixture(t, {account = true, pluginVault = false, response = readyWallets(), rejection = null, accountState = {status: 'ready', userId: privateAccount, token: privateToken}} = {}) {
+async function fixture(t, {account = true, accountProxy = false, pluginVault = false, response = readyWallets(), rejection = null, accountState = {status: 'ready', userId: privateAccount, token: privateToken}} = {}) {
   const tempRoot = fs.mkdtempSync(path.join(fixtureParent, 'dsh-account-balance-test-'));
   const home = path.join(tempRoot, 'home');
   fs.mkdirSync(home);
@@ -107,7 +107,11 @@ async function fixture(t, {account = true, pluginVault = false, response = ready
     credentials,
     connection,
     get(name) {
-      if (name === 'deepseekAccount') return accountService;
+      if (name === 'deepseekAccount') return accountProxy && accountService ? new Proxy(accountService, {
+        get(target, key, receiver) {
+          return key === Symbol.for('cordis.original') ? target : Reflect.get(target, key, receiver);
+        },
+      }) : accountService;
       if (name === 'connection') return connection;
       if (name === 'sessionTitle') {
         titleCalls.push(name);
@@ -219,6 +223,34 @@ test('account balance sums recharge and bonus in one currency and persists only 
     assert.equal(next.body.includes(secret), false);
   }
   f.assertRegistryUntouched();
+});
+
+test('Cordis contextual proxies share one account request and cached balance between widget and model panel', async t => {
+  const f = await fixture(t, {accountProxy: true});
+  let release;
+  f.state.response = new Promise(resolve => { release = resolve; });
+  const balance = f.request('/dsh-whale/balance.json');
+  const models = f.request('/dsh-whale/api-models.json');
+  const refresh = f.request('/dsh-whale/balance.json?refresh=1');
+  await new Promise(resolve => setImmediate(resolve));
+  const concurrentCalls = f.accountCalls.length;
+  release(readyWallets());
+  const [a, b, c] = await Promise.all([balance, models, refresh]);
+  assert.equal(a.json.ok, true, JSON.stringify(a.json));
+  assert.equal(a.json.totalBalance, 20);
+  assert.equal(b.json.models[0].balance, 20);
+  assert.equal(c.json.totalBalance, 20);
+  assert.equal(concurrentCalls, 1, 'a new Cordis proxy must not launch a second request');
+  assert.equal((await f.request('/dsh-whale/balance.json')).json.totalBalance, 20);
+  assert.equal((await f.request('/dsh-whale/api-models.json')).json.models[0].balance, 20);
+  assert.equal(f.accountCalls.length, 1, 'both routes reuse the same account balance cache');
+  f.state.accountState = {status: 'ready', userId: 'another-fixture-account'};
+  f.state.response = readyWallets('8.00', '0.00');
+  const switched = await f.request('/dsh-whale/balance.json');
+  assert.equal(switched.json.totalBalance, 8, 'a real account switch invalidates the cache');
+  assert.equal(switched.json.todayUsage, 0, 'different account balances must not become spending');
+  assert.equal(f.accountCalls.length, 2);
+  assert.deepEqual(f.credentialCalls, []);
 });
 
 test('missing or failing account service never falls back to the main-chat API key', async t => {

@@ -12094,9 +12094,21 @@ function bubbleModuleFontU(level) {
   return Math.round(40 + (n - 1) * 200 / 49)
 }
 function bubbleAmountText() {
+  if (state.status === 'error') return '获取失败'
   var v = shown !== null ? shown : (state.balance !== null ? state.balance : null)
   if (v === null) return '…'
   return fmt(v, state.currency)
+}
+// 余额请求完成时只更新实际显示的金额文字，不重建气泡或重抽随机台词。
+function bubbleRefreshBalanceRows() {
+  if (costBubbleActive) return
+  var rows = textBox.querySelectorAll('.dshwv-trow')
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i], mod = row.__dshwBalanceMod, tx = row.__dshwBalanceText
+    if (!mod || !tx) continue
+    tx.textContent = String(bubbleRowContentOf(mod).txt)
+    row.title = state.status === 'error' ? (state.message || '获取失败 · 点击小鲸鱼重试') : ''
+  }
 }
 function bubbleTodayText() {
   return (state.usageLabel || '今日已用') + ' ' + (state.todayUsage !== null && state.todayUsage !== undefined ? fmt(state.todayUsage, state.todayUsageCurrency || state.currency) : '--')
@@ -13002,6 +13014,11 @@ function bubbleRowsTo(parentEl, mods) {
       row.appendChild(tx)
     }
     tx.textContent = String(rowContent.txt)
+    if (parentEl === textBox && !bubbleIsModelMod(m) && (m.type === 'balance' || m.type === 'today')) {
+      row.__dshwBalanceMod = m
+      row.__dshwBalanceText = tx
+      row.title = state.status === 'error' ? (state.message || '获取失败 · 点击小鲸鱼重试') : ''
+    }
     // 峰谷/时段倒计时块不受自动换行影响:保持单行显示
     if (m.type === 'peak' || m.type === 'nextpeak') {
       row.style.whiteSpace = 'nowrap'
@@ -13608,6 +13625,7 @@ function animateAmount(from, to, currency, duration) {
   if (from === to) {
     shown = to
     amountEl.textContent = fmt(to, currency)
+    bubbleRefreshBalanceRows()
     return
   }
   var startTime = null
@@ -13628,6 +13646,7 @@ function animateAmount(from, to, currency, duration) {
       animId = null
       shown = to
       amountEl.textContent = fmt(to, currency)
+      bubbleRefreshBalanceRows()
     }
   }
   animId = requestAnimationFrame(step)
@@ -13652,8 +13671,8 @@ function render() {
   } else {
     setHint(hint)
   }
-  // 注意:不在泡泡显示期间整泡重绘(内容在用户观看时保持稳定);
-  // 数值/峰谷等更新由“泡泡消失→下一次显示”时的渲染自然采用最新 state
+  bubbleRefreshBalanceRows()
+  // 不整泡重绘：这里只同步余额/今日用量文字，其它内容保留当前场景。
 }
 function express() {
   root.style.right = 'auto'
@@ -13785,6 +13804,19 @@ function artCenterAt(left, top, w, h, flipped) {
 // 首次 DNS+TLS 也最慢；而客户端 25s 超时会先于宿主的两段重试结束 —— 结果是第一次必失败、
 // 只能干等 60 秒后的下一轮。这里失败后快速重试两次（1.5s / 3s），成功即重置计数。
 var balanceRetryLeft = 2
+function balanceRefreshFailed(message) {
+  // 查询失败可能来自账户切换，旧金额不能作为新账户的余额继续显示。
+  if (animId !== null) { cancelAnimationFrame(animId); animId = null }
+  if (animDelayTimer) { clearTimeout(animDelayTimer); animDelayTimer = null }
+  if (settleTimer) { clearTimeout(settleTimer); settleTimer = null }
+  shown = null
+  state.balance = null
+  state.todayUsage = null
+  state.status = 'error'
+  state.message = message || '获取失败'
+  render()
+  balanceRetryLater()
+}
 function balanceRetryLater() {
   if (balanceRetryLeft <= 0) return
   var delay = balanceRetryLeft === 2 ? 1500 : 3000
@@ -13848,17 +13880,11 @@ function refresh(manual) {
           render()
         }
       } else {
-        state.status = 'error'
-        state.message = (data && data.error) ? String(data.error) : '获取失败'
-        render()
-        balanceRetryLater()
+        balanceRefreshFailed((data && data.error) ? String(data.error) : '获取失败')
       }
     })
     .catch(function () {
-      state.status = 'error'
-      state.message = '获取失败'
-      render()
-      balanceRetryLater()
+      balanceRefreshFailed('获取失败')
     })
     .finally(function () {
       busy = false
